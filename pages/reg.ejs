@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('./partials/head')%>
+
+<body>
+    <%-include('./partials/header')%>
+    
+    <div class="container">
+        <h1 class="regTitle">Регистрация</h1>
+        <form method="post" enctype="application/x-www-form-urlencoded">
+            <!-- <section> -->
+                <label class="inputTitle">Имя</label>            
+                <input class="inputArea" type="text" name="name">
+            <!-- </section> -->
+            
+            <!-- <section> -->
+                <label class="inputTitle">Почта</label>
+                <input class="inputArea" type="text" name="mail"> 
+            <!-- </section> -->
+            
+            <!-- <section> -->
+                <label class="inputTitle">Пароль</label>
+                <input class="inputArea" type="password" name="pass"> 
+            <!-- </section> -->
+            
+            <!-- <section> -->
+                <label class="inputTitle">Повторите пароль</label>
+                <input class="inputArea" type="password" name="rePass"> 
+            <!-- </section> -->
+            
+            <!-- <section>
+                <label class="inputTitle">Аватарка</label>
+                <input type="file" name="img">
+            </section> -->
+            
+            <input id="submit" type="submit" value="Отправить">
+        </form>
+    </div>
+        
+    </body>
+    </html>

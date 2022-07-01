@@ -1,0 +1,46 @@
+/* text */
+.title{
+    color: black;
+    font-size: 60px;
+}
+
+p{
+    margin-left: 20px;
+}
+
+/* input */
+input{
+    border-radius: 20px;
+    padding: 2px 10px;
+    border: 2px solid black;
+    outline: none;
+    transition: border 0.3s linear;
+}
+
+input:focus{
+    border: 2px solid #24a141;
+}
+
+/* button */
+/* .btnLogin{
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 2px 6px;
+    outline: none;
+    transition: all 0.3s linear;
+} 
+
+.btnLogin:hover{
+    background-color: #38FD66;
+} */
+
+/* submit */
+#submit{
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+#submit:hover{
+    background-color: #38FD66;
+}
