@@ -1,15 +1,37 @@
-// обработка кнопки login form submit
-console.log('Script Working!')
+// обработка кнопки reg
+let sendForm = document.querySelector('#loginForm');
 
-let btn = document.querySelector('.btnLogin');
+function getFormObj(form){
+    let {login, pass} = form;
+    let res = {
+        name: login.value,
+        password: pass.value,
+    }
 
-btn.addEventListener('click', (e)=>{
+    return res;
+};
+
+
+sendForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    let loginForm = document.forms[0];
 
-    let login = loginForm["login"];
-    let pass = loginForm["pass"];
+    let postContent = getFormObj(sendForm);
 
-    console.log(login.value);
-    console.log(pass.value); 
+    let res = await fetch('/api/login', {
+        method:"post",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(postContent)
+    });
+
+
+    if (res.ok){
+
+        // в случае успеха возвращаемся на главную страницу
+        alert('Успешный вход');
+        window.location.href = window.location.href.slice(0, window.location.href.length - 5); 
+    } else {
+        alert(res.text);
+    }
 });

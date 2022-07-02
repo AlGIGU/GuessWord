@@ -7,7 +7,7 @@
     
     <div class="container">
         <h1 class="regTitle">Регистрация</h1>
-        <form method="post" enctype="application/x-www-form-urlencoded">
+        <form id="mainForm" method="post" enctype="application/x-www-form-urlencoded">
             <!-- <section> -->
                 <label class="inputTitle">Имя</label>            
                 <input class="inputArea" type="text" name="name">
@@ -37,5 +37,6 @@
         </form>
     </div>
         
+    <%-include('./partials/scripts')%>
     </body>
     </html>

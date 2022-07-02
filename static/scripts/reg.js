@@ -1,13 +1,42 @@
-// обработка кнопки login form submit
-console.log('Script Working!')
+// обработка кнопки reg
+console.log('Script!');
 
-let btn = document.querySelector('.btnForm');
+let sendForm = document.querySelector('#mainForm');
 
-btn.addEventListener('click', (e)=>{
+
+function getFormObj(form){
+    let {mail, pass, name} = form;
+    let res = {
+        name: name.value,
+        password: pass.value,
+        mail: mail.value,
+        coins:0
+    }
+    return res;
+
+};
+
+
+sendForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    let loginForm = document.forms[0];
 
-    let image = loginForm["img"];
+    let postContent = getFormObj(sendForm);
 
-    console.log(image.value); 
+    let res = await fetch('/api/reg', {
+        method:"post",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(postContent)
+    });
+
+    console.log("Response", res);
+
+    if (res.ok){
+        // в случае успеха возвращаемся на главную страницу
+        alert('Успешная регистрация');
+        window.location.href = window.location.href.slice(0, window.location.href.length - 3); 
+    } else {
+        alert('Произошла ошибка');
+    }
 });

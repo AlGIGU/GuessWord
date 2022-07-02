@@ -1,3 +1,6 @@
+import UserModel from "./User.js";
+import {validationResult} from "express-validator";
+
 function mainObject(obj){
     let res = {
         headTitle : "Guess Word",
@@ -76,13 +79,34 @@ class Controller{
 
     // перенести
     getUser(req,res){
-        pass;
+        try{
+            if (req.body == {}) throw new Error('Empty request!');
+
+            // валидация
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
+            
+            res.json('All correct!');
+        } catch(e){
+            res.status(500).json(e.message);
+        }
     };
 
     postUser(req,res){
-        console.log(req);
-        return res.json(req.body);
-    };
+        try{
+            if (req.body == {}) {
+                throw new Error('Suck')
+                };
+            
+            console.log("U are poc", req.body);
+
+           res.json('PPPP')       
+
+        } catch(e){
+            res.status(500).json(e.message);
+        }
+
+        }
 
     notFound(req,res){
         res.render('notFound', mainObject({
