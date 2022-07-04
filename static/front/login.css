@@ -1,6 +1,6 @@
 /* text */
 .title{
-    color: black;
+    color: white;
     font-size: 60px;
 }
 
@@ -12,35 +12,25 @@ p{
 input{
     border-radius: 20px;
     padding: 2px 10px;
-    border: 2px solid black;
+    border: 3px solid #34AF56;
     outline: none;
     transition: border 0.3s linear;
 }
 
 input:focus{
-    border: 2px solid #24a141;
+    box-shadow: 0px 0px 10px #34AF56;
+    border: 3px solid #34AF56;
 }
 
-/* button */
-/* .btnLogin{
-    cursor: pointer;
-    border-radius: 20px;
-    padding: 2px 6px;
-    outline: none;
-    transition: all 0.3s linear;
-} 
-
-.btnLogin:hover{
-    background-color: #38FD66;
-} */
-
 /* submit */
-#submit{
+[name="submit"]{
     padding: 5px 10px;
     cursor: pointer;
     transition: all 0.3s linear;
+    background-color: #34AF56;
 }
 
-#submit:hover{
-    background-color: #38FD66;
+
+[name="submit"]:hover, [name="submit"]:focus{
+    box-shadow: 0px 0px 10px #34AF56;
 }

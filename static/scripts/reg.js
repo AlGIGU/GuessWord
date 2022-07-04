@@ -1,6 +1,4 @@
 // обработка кнопки reg
-console.log('Script!');
-
 let sendForm = document.querySelector('#mainForm');
 
 
@@ -8,7 +6,7 @@ function getFormObj(form){
     let {mail, pass, name} = form;
     let res = {
         name: name.value,
-        password: pass.value,
+        pass: pass.value,
         mail: mail.value,
         coins:0
     }
@@ -17,6 +15,7 @@ function getFormObj(form){
 };
 
 
+// отправка запроса
 sendForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
 
@@ -30,13 +29,12 @@ sendForm.addEventListener('submit', async (e)=>{
         body: JSON.stringify(postContent)
     });
 
-    console.log("Response", res);
-
     if (res.ok){
         // в случае успеха возвращаемся на главную страницу
         alert('Успешная регистрация');
         window.location.href = window.location.href.slice(0, window.location.href.length - 3); 
     } else {
-        alert('Произошла ошибка');
+        alert(res.statusText);
     }
 });
+

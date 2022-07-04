@@ -25,7 +25,7 @@ router.post('/login', [
 ], Controller.getUser);
 
 router.post('/reg',[
-    check('name', "Имя не должно быть пустым").notEmpty(),
+    check('name', "Поле имя не должно быть пустым").notEmpty(),
     check("pass", "Пароль должен быть длиной от 6 до 10 символов").notEmpty().isLength({
         min:6,
         max:10

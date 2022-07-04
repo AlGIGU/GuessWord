@@ -27,7 +27,6 @@ class Controller{
     index(req, res){
         res.render('index',
         mainObject({
-            cssList:["./front/main.css"],
             currentLink : "/"
         })    
         );       
@@ -39,7 +38,10 @@ class Controller{
 
             // скрипты и css - обрабатываются как статика
             cssList: ['./front/login.css'],
-            scriptsList : ['./scripts/login.js']
+            scriptsList : [
+                './scripts/login.js',
+                './scripts/loginValid.js',
+            ],
         }));        
     };
     
@@ -47,7 +49,10 @@ class Controller{
         res.render('reg', mainObject({
             headTitle:"Sign Up",
             cssList: ['./front/reg.css'],
-            scriptsList : ['./scripts/reg.js']
+            scriptsList : [
+                './scripts/reg.js',
+                './scripts/regValid.js'
+            ]
         }) 
 
         );        
@@ -80,33 +85,32 @@ class Controller{
     // перенести
     getUser(req,res){
         try{
-            if (req.body == {}) throw new Error('Empty request!');
+            if (Object.keys(req.body).length == 0) throw new Error('Empty request!');
 
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
-            
+          
             res.json('All correct!');
         } catch(e){
-            res.status(500).json(e.message);
+            res.status(500).json(e);
         }
     };
 
     postUser(req,res){
         try{
-            if (req.body == {}) {
-                throw new Error('Suck')
-                };
+            if (Object.keys(req.body).length == 0) throw new Error('Suck');
             
-            console.log("U are poc", req.body);
+            // валидация
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) throw new Error("Ошибка валидация");
 
-           res.json('PPPP')       
+            res.json('All correct!');       
 
         } catch(e){
-            res.status(500).json(e.message);
-        }
-
-        }
+            res.status(500).json(e);
+        };
+    };
 
     notFound(req,res){
         res.render('notFound', mainObject({

@@ -4,8 +4,8 @@ let sendForm = document.querySelector('#loginForm');
 function getFormObj(form){
     let {login, pass} = form;
     let res = {
-        name: login.value,
-        password: pass.value,
+        login: login.value,
+        pass: pass.value,
     }
 
     return res;
@@ -32,6 +32,6 @@ sendForm.addEventListener('submit', async (e)=>{
         alert('Успешный вход');
         window.location.href = window.location.href.slice(0, window.location.href.length - 5); 
     } else {
-        alert(res.text);
+        alert("На стороне сервера произошла ошибка входа.");
     }
 });
