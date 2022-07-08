@@ -1,5 +1,7 @@
 import UserModel from "./User.js";
 import {validationResult} from "express-validator";
+import CurrentUser from "./currentUser.js";
+import User from "./User.js";
 
 function mainObject(obj){
     let res = {
@@ -83,7 +85,7 @@ class Controller{
     };
 
     // перенести
-    getUser(req,res){
+    async getUser(req,res){
         try{
             if (Object.keys(req.body).length == 0) throw new Error('Empty request!');
 
@@ -91,13 +93,16 @@ class Controller{
             const errors = validationResult(req);
             if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
           
+            const dadata = await CurrentUser.findUser(req.body.login, req.body.pass);
+
+
             res.json('All correct!');
         } catch(e){
             res.status(500).json(e);
         }
     };
 
-    postUser(req,res){
+    async postUser(req,res){
         try{
             if (Object.keys(req.body).length == 0) throw new Error('Suck');
             
@@ -105,7 +110,12 @@ class Controller{
             const errors = validationResult(req);
             if (!errors.isEmpty()) throw new Error("Ошибка валидация");
 
-            res.json('All correct!');       
+            if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
+                throw new Error('Данный пользователь уже зарегистрирован.')
+            };
+
+            const createrUser = await User.create(req.body);
+            res.json(createrUser);       
 
         } catch(e){
             res.status(500).json(e);

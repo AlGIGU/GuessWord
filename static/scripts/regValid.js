@@ -1,6 +1,6 @@
 sendForm.name.setCustomValidity('Поле имя обязательно для ввода.');
 sendForm.mail.setCustomValidity('Поле почты обязательно для ввода.');
-sendForm.pass.setCustomValidity('Пароль и подтверждение пароля не совпадают.');
+sendForm.pass.setCustomValidity('Поле пароль не должно быть пустым.');
 
 
 // валидация имени
