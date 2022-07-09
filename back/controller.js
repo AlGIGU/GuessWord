@@ -1,4 +1,4 @@
-import UserModel from "./User.js";
+import mongoose from "mongoose";
 import {validationResult} from "express-validator";
 import CurrentUser from "./currentUser.js";
 import User from "./User.js";
@@ -108,14 +108,27 @@ class Controller{
             
             // валидация
             const errors = validationResult(req);
-            if (!errors.isEmpty()) throw new Error("Ошибка валидация");
+            if (!errors.isEmpty()){
+                console.log('Ошибка валидации');
+                throw new Error("Ошибка валидации");
+            }
 
             if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
+                console.log('Данный пользователь уже зарегистрирован.');
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
 
-            const createrUser = await User.create(req.body);
-            res.json(createrUser);       
+            // создание экземпляра по схеме
+            const createdUser  = new User(req.body);
+
+            createdUser.save(err=>{
+                if (err){
+                    console.log('Ошибка сохранения в БД.');
+                    throw new Error('Ошибка сохранения в БД.');
+                }
+            });
+
+            res.json('Done');       
 
         } catch(e){
             res.status(500).json(e);

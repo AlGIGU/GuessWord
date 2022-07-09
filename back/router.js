@@ -26,7 +26,7 @@ router.post('/login', [
 
 router.post('/reg',[
     check('name', "Поле имя не должно быть пустым").notEmpty(),
-    check("pass", "Пароль должен быть длиной от 6 до 10 символов").notEmpty().isLength({
+    check("password", "Пароль должен быть длиной от 6 до 10 символов").notEmpty().isLength({
         min:6,
         max:10
     }),

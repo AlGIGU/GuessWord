@@ -36,8 +36,7 @@ sendForm.rePass.addEventListener('input', function(){
 
 // валидация почты
 sendForm.mail.addEventListener('input', ()=>{    
-    let reg = new RegExp('[a-zA-Z]+[@]{1}[a-zA-Z]+[.]{1}[a-zA-Z]+');
-    console.log(sendForm.mail.value.length);
+    let reg = new RegExp('^[a-zA-Z0-9._]+[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$');
 
     if (sendForm.mail.value.length == 0){
         sendForm.mail.setCustomValidity('Поле почты обязательно для ввода.');
@@ -49,4 +48,3 @@ sendForm.mail.addEventListener('input', ()=>{
         sendForm.mail.setCustomValidity('');
     };
 });
-
