@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 const User = new mongoose.Schema({
     name: {type: String, required : true, minlength:2},
     mail: {type: String, required : true},
-    password: {type: String, required : true,  minlength:6, maxlength:10},
+    password: {type: String, required : true},
     coins: {type: String, required : true},
-    avatar : {type: String}
+    privilege : {type: String, default:"User"}
 });
 
 export default mongoose.model('User', User);

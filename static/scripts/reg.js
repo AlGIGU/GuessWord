@@ -2,16 +2,15 @@
 const sendForm = document.querySelector('#mainForm');
 
 function getFormObj(form){
-    let {mail, pass, name} = form;
     let res = {
-        name: name.value,
-        mail: mail.value,
-        password : pass.value,
-        coins:0
+        name: form.name.value,
+        mail: form.mail.value,
+        password : form.pass.value,
+        coins: 0
     };
+
     // res.password = bcrypt.hashSync(pass.value, 7);
     return res;
-
 };
 
 

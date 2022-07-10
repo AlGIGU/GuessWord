@@ -93,3 +93,37 @@
         border-bottom: 3px solid #34AF56;
         text-shadow: 0px 0px 10px white;
     }
+
+
+/* profile */
+    .toProfile{
+        display: flex;
+        padding: 2px 5px;
+        cursor: pointer;
+        border-bottom: 2px solid white;
+        transition: all 0.1s linear;
+    }
+
+    .toProfile:hover, .toProfile:focus{
+        border-bottom: 2px solid #34AF56;
+    }
+
+    .userIcon{
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    #profileName{
+        color: black;
+        margin-right: 20px;
+    }
+
+    .exitButton{
+        text-decoration: none;
+        color: black;
+        transition: all 0.2s linear;
+    }
+
+    .exitButton:focus, .exitButton:hover{
+        color: #34AF56;
+    }

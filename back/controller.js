@@ -2,41 +2,23 @@ import mongoose from "mongoose";
 import {validationResult} from "express-validator";
 import CurrentUser from "./currentUser.js";
 import User from "./User.js";
+import bcrypt from "bcrypt";
 
-function mainObject(obj){
-    let res = {
-        headTitle : "Guess Word",
-        cssList : ["./front/header.css"],
-        logined : false,
-        profileName : undefined,
-        currentLink : undefined,
-        scripstList : []
-    };
-
-    for (let i of Object.keys(obj)){
-        if (i == "cssList"){
-            res[i] = res[i].concat(obj[i]);
-            continue;
-        }
-        res[i] = obj[i];
-    };
-
-    return res;
-};
+let mainObject = CurrentUser;
 
 
 class Controller{
     index(req, res){
-        res.render('index',
-        mainObject({
-            currentLink : "/"
-        })    
-        );       
+        mainObject.updateStatus({
+            currentLink : "/",
+        })
+        res.render('index', mainObject.getStatus);       
     };
 
     login(req, res){
-        res.render('login', mainObject({
+        mainObject.updateStatus({
             headTitle:"Login",
+            currentLink : "/login",
 
             // скрипты и css - обрабатываются как статика
             cssList: ['./front/login.css'],
@@ -44,62 +26,85 @@ class Controller{
                 './scripts/login.js',
                 './scripts/loginValid.js',
             ],
-        }));        
+        });
+        res.render('login', mainObject.getStatus);        
     };
-    
+
     reg(req, res){
-        res.render('reg', mainObject({
+        mainObject.updateStatus({
             headTitle:"Sign Up",
+            currentLink : "/reg",
             cssList: ['./front/reg.css'],
             scriptsList : [
                 './scripts/reg.js',
                 './scripts/regValid.js'
             ]
-        }) 
+        });
 
-        );        
+        res.render('reg', mainObject.getStatus);        
     };
-    
+
     //В названии странице сделать имя пользователя
     profile(req, res){
-        res.render('profile', mainObject({
-            headTitle : "Profile"
-        })
-        );        
+        mainObject.updateStatus({
+            headTitle : "Profile",
+            currentLink : "/profile",
+        });
+
+        res.render('profile', mainObject.getStatus);        
     };
-    
+
     game(req, res){
-        res.render('game', mainObject({
-            headTitle : "Guess Word"
-        })
-        )        
+        mainObject.updateStatus({
+            headTitle : "Guess Word",
+            currentLink : "/game",
+        });
+
+        res.render('game', mainObject.getStatus);
     };
-   
+
+
     rules(req, res){
-        res.render('rules', mainObject({
+        mainObject.updateStatus({
             headTitle:"Guess Word",
             cssList:['./front/rules.css'],
             currentLink:"/rules"
-        })
-        );
+        });
+        res.render('rules', mainObject.getStatus);
+    };
+
+    exitUser(req,res){
+        mainObject.unsetUser();
+        mainObject.updateStatus({
+            headTitle:"Guess Word",
+            currentLink : "/",
+        });
+
+        res.render('index', mainObject.getStatus);
     };
 
     // перенести
     async getUser(req,res){
         try{
             if (Object.keys(req.body).length == 0) throw new Error('Empty request!');
-
+            console.log('Body:');
+            console.log(req.body);
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
-          
-            const dadata = await CurrentUser.findUser(req.body.login, req.body.pass);
 
+            const userData = await mainObject.findUser(req.body.login, req.body.password);
+            console.log(userData);
+            if (Object.keys(userData).length == 6){
+                mainObject.setUser(userData);
+            } else {
+                throw new Error('Не правильные данные');
+            }
 
             res.json('All correct!');
         } catch(e){
             res.status(500).json(e);
-        }
+        };
     };
 
     async postUser(req,res){
@@ -118,8 +123,12 @@ class Controller{
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
 
+            // хэширование пароля
+            let newUser = req.body;
+            newUser.password = bcrypt.hashSync(newUser.password, 8);
+            
             // создание экземпляра по схеме
-            const createdUser  = new User(req.body);
+            const createdUser  = new User(newUser);
 
             createdUser.save(err=>{
                 if (err){
@@ -127,6 +136,15 @@ class Controller{
                     throw new Error('Ошибка сохранения в БД.');
                 }
             });
+
+            mainObject.updateStatus({
+                userProfile: {
+                    logined : true,
+                    name : req.body.name,
+                    coins : 0,
+                    mail : req.body.mail,
+                }
+            })
 
             res.json('Done');       
 
@@ -136,12 +154,14 @@ class Controller{
     };
 
     notFound(req,res){
-        res.render('notFound', mainObject({
-            headTitle:"404 not found",
-            currentLink:'/notFound',
-            cssList:['./front/notFound.css']
-        }))
-    }
+        mainObject.updateStatus({
+            headTitle:"Guess Word",
+            currentLink:"notFound",
+            cssList: ['./front/notFound.css'],
+        });
+
+        res.render('notFound', mainObject.getStatus);
+    };
 
 };
 

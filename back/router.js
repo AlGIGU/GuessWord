@@ -13,6 +13,8 @@ router.get('/reg', Controller.reg);
 router.get('/profile', Controller.profile);
 router.get('/rules', Controller.rules);
 
+router.get('/exit', Controller.exitUser);
+
 router.post('/login', [
     check("login", "Поле логин должно быть длиной от 2 до 10 символов").notEmpty().isLength({
         min:2,

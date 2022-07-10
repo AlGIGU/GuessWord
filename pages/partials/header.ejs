@@ -3,17 +3,21 @@
     <nav style="display:flex" class="navbar">
 
             <img src="./allImg/logo.png" alt="logo.jpg" id="mainLogo">
-            
+
             <div class="headerBox">
                 <!-- ссылки на статику ведутся относительно папки со статикой -->
                 <a class="controlLink <%if (currentLink=="/") {%>action<%}%>" href="/api/">Главная</a>                
                 <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/api/rules">Правила</a>
             </div>
-            
+
             <!-- В случае, если пользователь залогинен, то отобразить его аватарку и имя -->
-            <% if (logined){%>
-                <img src="#" alt="avatar.jpg">
-                <p id="profileName"><%=profileName%></p>
+            <% if (userProfile.logined){%>
+                <section class="toProfile">
+                    <img src="<%= userProfile.status == 'Admin'? "./icons/admin.png" : "./icons/user.png"%>" class="userIcon" alt="avatar.jpg">
+                    <p id="profileName"><%=userProfile.name%></p>
+                </section>
+                <a class="exitButton" href="#">Выйти</a>
+
             <%} else {%>
                 <a class="actionLink" href="/api/login">Вход</a>                
                 <a class="actionLink" href="/api/reg">Регистрация</a>
