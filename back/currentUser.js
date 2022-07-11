@@ -18,7 +18,6 @@ class CurrentUser{
             mail: undefined,
             status: undefined,
         };
-
     };
 
     get getStatus(){
@@ -30,6 +29,10 @@ class CurrentUser{
             userProfile : this.userProfile,
         };
     };
+
+    get userInfo(){
+        return this.userProfile;
+    }
 
     updateStatus(obj){
         this.cssList = ["./front/header.css"];
@@ -49,6 +52,14 @@ class CurrentUser{
             }
         };
     };
+
+    updateUser(obj){
+        for (let i of Object.keys(obj)){
+            if (this.userProfile.hasOwnProperty(i)){
+                this.userProfile[i] = obj[i]
+            }
+        };
+    }
 
 
     async userInDB(name, mail){

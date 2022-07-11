@@ -44,12 +44,15 @@ class Controller{
         res.render('reg', mainObject.getStatus);        
     };
 
-    //В названии странице сделать имя пользователя
     profile(req, res){
         mainObject.updateStatus({
-            headTitle : "Profile",
+            headTitle : mainObject.userInfo.name,
             currentLink : "/profile",
             cssList : ["./front/profile.css"],
+            scriptsList : [
+                "./scripts/profile.js",
+                "./scripts/profileValid.js",
+            ]
         });
 
         res.render('profile', mainObject.getStatus);        
@@ -63,7 +66,6 @@ class Controller{
 
         res.render('game', mainObject.getStatus);
     };
-
 
     rules(req, res){
         mainObject.updateStatus({
@@ -84,7 +86,63 @@ class Controller{
         res.render('index', mainObject.getStatus);
     };
 
-    // перенести
+    notFound(req,res){
+        mainObject.updateStatus({
+            headTitle:"Guess Word",
+            currentLink:"notFound",
+            cssList: ['./front/notFound.css'],
+        });
+
+        res.render('notFound', mainObject.getStatus);
+    };
+
+    async checkPass(req,res){
+        try{
+            const userDB = await User.findById(mainObject.userInfo.id)  
+        
+            if (!userDB){
+                throw new Error('Пользователь не найден');
+            };
+
+            if (bcrypt.compareSync(req.body.pass, userDB.password)){
+                res.json('Пароль совпадает')
+            } else {
+                res.status(400).json('Не правильный пароль');
+            }
+        } catch(e){
+            res.status(500).json(e.message);
+        }
+    }
+
+    // работа с БД
+    async updateUser(req,res){
+        try{
+            let updateBody = {
+                name: req.body.name,
+                mail:req.body.mail,
+            };
+
+            if (req.body.newPassword){
+                updateBody.password = bcrypt.hashSync(req.body.newPassword, 8);
+            } 
+
+            // updateBody.privilege = mainObject.getUser.privilege,
+            // updateBody.coins = mainObject.getStatus.coins
+
+            const userDB = await User.findByIdAndUpdate(mainObject.userInfo.id,updateBody, {new:true});
+            
+            if (!userDB){
+                throw new Error('Пользователь не найден')
+            }
+            
+            mainObject.updateUser(req.body);
+
+            res.json('Done');
+        }catch(e){
+            res.status(500).json(e.message);
+        }
+    }
+
     async getUser(req,res){
         try{
             if (Object.keys(req.body).length == 0) throw new Error('Empty request!');
@@ -113,12 +171,10 @@ class Controller{
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()){
-                console.log('Ошибка валидации');
                 throw new Error("Ошибка валидации");
             }
 
             if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
-                console.log('Данный пользователь уже зарегистрирован.');
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
 
@@ -131,19 +187,16 @@ class Controller{
 
             createdUser.save(err=>{
                 if (err){
-                    console.log('Ошибка сохранения в БД.');
                     throw new Error('Ошибка сохранения в БД.');
                 }
             });
-
-            mainObject.updateStatus({
-                userProfile: {
-                    logined : true,
-                    name : req.body.name,
-                    coins : 0,
-                    mail : req.body.mail,
-                }
-            })
+            mainObject.updateUser({
+                logined : true,
+                name : req.body.name,
+                coins : 0,
+                mail : req.body.mail,
+                status: req.body.privilege ?? "User",
+            });
 
             res.json('Done');       
 
@@ -152,16 +205,16 @@ class Controller{
         };
     };
 
-    notFound(req,res){
-        mainObject.updateStatus({
-            headTitle:"Guess Word",
-            currentLink:"notFound",
-            cssList: ['./front/notFound.css'],
-        });
+    async deleteUser(req,res){
+        try{
+            await User.findByIdAndDelete(mainObject.userInfo.id);
+            mainObject.unsetUser();
 
-        res.render('notFound', mainObject.getStatus);
-    };
-
+            res.json("Done");
+        }catch(e){
+            res.status(500).json(e.message);
+        }
+    }
 };
 
 export default new Controller();

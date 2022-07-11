@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./partials/head') %> 
+<%- include('./partials/head')%> 
 
 <body>
 <!-- Страница с профилем игрока, где находится вся его статистика -->
     <%-include('./partials/header')%>
-    <div class="container">
-        <h1 class="pageData">Profile</h1>
-    </div>
     <%if (!userProfile.logined){%>
         <div class="container">
+            <h1 class="pageData">Профиль</h1>
             <h1 class="warningMessage">Войдите или зарегистрируйтесь, чтобы увидеть свой профиль.</h1>
         </div>
     <%} else {%>
         <div class="container">
+            <h1 class="pageData">Профиль</h1>
+            <template class="firstTemplate">
+                <form class="newForm" action="#">
+                    <h2 class="mainData">Данные</h2>
+                    <section class="dataSection">
+                        <p class="titleData">Имя: </p>
+                        <input type="text" name="userName" value="<%=userProfile.name%>">
+                    </section>
 
+                    <section class="dataSection">
+                        <p class="titleData">Почта: </p>
+                        <input type="text" name="userMail" value="<%=userProfile.mail%>">
+                    </section>
+
+                    <section class="dataSection">
+                        <p class="titleData">Пароль: </p>
+                        <input type="password" name="userPass">
+                    </section>
+
+                    <section class="dataSection">
+                        <p class="titleData">Новый пароль(при желании): </p>
+                        <input type="password" name="userNewPass">
+                    </section>
+
+                    <hr class="horizontalLine">
+                    
+                    <button class="backButton">Назад</button>
+                    <input type="submit" name="submitButton">
+                </form>
+            </template>
             <div class="userData">
                 <h2 class="mainData">Данные</h2>
 
                 <section class="dataSection">
                     <p class="titleData">Имя: </p>
-                    <p class="contentData"><%= userProfile.name %></p>
+                    <p class="contentData userName"><%= userProfile.name %></p>
                 </section>
 
                 <section class="dataSection">
                     <p class="titleData">Почта: </p>
-                    <p class="contentData"><%= userProfile.mail %></p>
+                    <p class="contentData userMail"><%= userProfile.mail %></p>
                 </section>
 
                 <section class="dataSection">
                     <p class="titleData">Рейтинг: </p>
-                    <p class="contentData"><%= userProfile.coins %></p>
+                    <p class="contentData userCoins"><%= userProfile.coins %></p>
                 </section>
 
                 <section class="dataSection">
                     <p class="titleData">Привилегия: </p>
-                    <p class="contentData" id="userStatus"><%= userProfile.status %></p>
+                    <p class="contentData userStatus" id="userStatus"><%= userProfile.status %></p>
                 </section>
-
+                <hr class="horizontalLine">
+                <button class="changeButton">Изменить</button>
+                <button class="deleteButton">Удалить</button>
             </div>
         </div>
         <%}%>

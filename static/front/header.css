@@ -25,6 +25,7 @@
         background-color: white;
         border-bottom: 2.5px solid white;
         max-height: 100px;
+        height: 100%;
     }
 
 /* header box */
@@ -50,7 +51,7 @@
     }
 
 /* navbar */
-    nav{
+    nav{        
         background-color: inherit;
     }
 
@@ -58,7 +59,7 @@
     .controlLink{
         color: black;
         padding: 5px;
-        border-bottom: 3px solid white;
+        border-bottom: 5px solid white;
         transition: all 0.3s linear;
     };
 
@@ -70,7 +71,7 @@
 
     .action{
         border-radius: 0;
-        border-bottom: 3px solid #34AF56;
+        border-bottom: 5px solid #34AF56;
         font-weight: 800;
         color: black;
     }
@@ -100,12 +101,12 @@
         display: flex;
         padding: 2px 5px;
         cursor: pointer;
-        border-bottom: 2px solid white;
+        border-bottom: 5px solid white;
         transition: all 0.1s linear;
     }
 
     .toProfile:hover, .toProfile:focus{
-        border-bottom: 2px solid #34AF56;
+        border-bottom: 5px solid #34AF56;
     }
 
     .userIcon{

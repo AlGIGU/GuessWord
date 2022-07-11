@@ -1,7 +1,8 @@
 /* text */
 .title{
-    color: white;
     font-size: 60px;
+    text-decoration: underline;
+    color: #34AF56;
 }
 
 p{

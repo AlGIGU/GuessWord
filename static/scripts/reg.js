@@ -6,6 +6,7 @@ function getFormObj(form){
         name: form.name.value,
         mail: form.mail.value,
         password : form.pass.value,
+        status : "User",
         coins: 0
     };
 
