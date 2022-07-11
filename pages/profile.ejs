@@ -6,8 +6,42 @@
 <body>
 <!-- Страница с профилем игрока, где находится вся его статистика -->
     <%-include('./partials/header')%>
-    <h1>Profile</h1>
+    <div class="container">
+        <h1 class="pageData">Profile</h1>
+    </div>
+    <%if (!userProfile.logined){%>
+        <div class="container">
+            <h1 class="warningMessage">Войдите или зарегистрируйтесь, чтобы увидеть свой профиль.</h1>
+        </div>
+    <%} else {%>
+        <div class="container">
 
+            <div class="userData">
+                <h2 class="mainData">Данные</h2>
+
+                <section class="dataSection">
+                    <p class="titleData">Имя: </p>
+                    <p class="contentData"><%= userProfile.name %></p>
+                </section>
+
+                <section class="dataSection">
+                    <p class="titleData">Почта: </p>
+                    <p class="contentData"><%= userProfile.mail %></p>
+                </section>
+
+                <section class="dataSection">
+                    <p class="titleData">Рейтинг: </p>
+                    <p class="contentData"><%= userProfile.coins %></p>
+                </section>
+
+                <section class="dataSection">
+                    <p class="titleData">Привилегия: </p>
+                    <p class="contentData" id="userStatus"><%= userProfile.status %></p>
+                </section>
+
+            </div>
+        </div>
+        <%}%>
     <%-include('./partials/scripts')%>
 </body>
 </html>

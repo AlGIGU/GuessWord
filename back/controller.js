@@ -49,6 +49,7 @@ class Controller{
         mainObject.updateStatus({
             headTitle : "Profile",
             currentLink : "/profile",
+            cssList : ["./front/profile.css"],
         });
 
         res.render('profile', mainObject.getStatus);        
@@ -87,15 +88,13 @@ class Controller{
     async getUser(req,res){
         try{
             if (Object.keys(req.body).length == 0) throw new Error('Empty request!');
-            console.log('Body:');
-            console.log(req.body);
+
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
 
-            const userData = await mainObject.findUser(req.body.login, req.body.password);
-            console.log(userData);
-            if (Object.keys(userData).length == 6){
+            const userData = await mainObject.findUser(req.body.login, req.body.pass);
+            if (Object.keys(userData).length == 5){
                 mainObject.setUser(userData);
             } else {
                 throw new Error('Не правильные данные');

@@ -18,7 +18,7 @@ class CurrentUser{
             mail: undefined,
             status: undefined,
         };
-        
+
     };
 
     get getStatus(){
@@ -49,8 +49,8 @@ class CurrentUser{
             }
         };
     };
-    
-    
+
+
     async userInDB(name, mail){
 
         // поиск пользователя по возможным кретериям
@@ -76,8 +76,6 @@ class CurrentUser{
                     name:`${criterion}`
                 });
             };
-            console.log("schemaResponse:");
-            console.log(schemaResponse);
 
             // если необходимо только проверить наличие пользователя в БД
             // if (!password) {
@@ -85,16 +83,16 @@ class CurrentUser{
             // };
 
             // если пользователь найден - вывести данные, иначе - ошибка
-            if (Object.keys(schemaResponse).length != 0){
-                if (bcrypt.hashSync(password, 8) = schemaResponse.password){
+            if (Object.keys(schemaResponse).length > 0){
+                if (await bcrypt.compare(password, schemaResponse.password)){
                     return {
                         id : schemaResponse._id,
                         name : schemaResponse.name,
                         mail : schemaResponse.mail,
                         coins : schemaResponse.coins,
-                        status : schemaResponse.status
+                        status : schemaResponse.privilege
                     };
-                    
+
                 } else {
                     throw new Error('Не правильный пароль');
                 };
@@ -102,7 +100,7 @@ class CurrentUser{
             } else {
                 throw new Error('Неправильный логин');
             };
-            
+
         } catch(e){
             return new Error(e.message);
         };

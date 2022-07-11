@@ -18,7 +18,6 @@ router.get('/exit', Controller.exitUser);
 router.post('/login', [
     check("login", "Поле логин должно быть длиной от 2 до 10 символов").notEmpty().isLength({
         min:2,
-        max:10
     }),
     check('pass', "Пароль должен быть длиной от 6 до 10 символов").notEmpty().isLength({
         min:6,
