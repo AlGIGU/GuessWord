@@ -8,6 +8,9 @@
                 <!-- ссылки на статику ведутся относительно папки со статикой -->
                 <a class="controlLink <%if (currentLink=="/") {%>action<%}%>" href="/api/">Главная</a>                
                 <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/api/rules">Правила</a>
+                <%if (userProfile.logined & userProfile.status == 'Admin'){%>
+                    <a class="controlLink <%if (currentLink=="/admin") {%>action<%}%>" href="/api/admin">Админка</a>
+                <%}%>
             </div>
 
             <!-- В случае, если пользователь залогинен, то отобразить его аватарку и имя -->

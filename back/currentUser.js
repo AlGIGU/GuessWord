@@ -61,7 +61,6 @@ class CurrentUser{
         };
     }
 
-
     async userInDB(name, mail){
 
         // поиск пользователя по возможным кретериям
@@ -87,12 +86,7 @@ class CurrentUser{
                     name:`${criterion}`
                 });
             };
-
-            // если необходимо только проверить наличие пользователя в БД
-            // if (!password) {
-            //     return (Object.keys(schemaResponse).length != 0)
-            // };
-
+            
             // если пользователь найден - вывести данные, иначе - ошибка
             if (Object.keys(schemaResponse).length > 0){
                 if (await bcrypt.compare(password, schemaResponse.password)){

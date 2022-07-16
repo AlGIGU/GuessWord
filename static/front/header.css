@@ -30,7 +30,7 @@
 
 /* header box */
     .headerBox{
-        margin-right: 950px;
+        margin-right: 800px;
     }
 
     .headerBox, a, img{
@@ -64,7 +64,7 @@
     };
 
     .controlLink:hover, .controlLink:focus{
-        border-bottom: 3px solid #34AF56;
+        border-bottom: 5px solid #34AF56;
         text-shadow: 0px 0px 10px white;
         color: black;
     } 
@@ -85,13 +85,13 @@
         border-radius: 0px;
         color: black;
         transition: all 0.3s linear;
-        border-bottom: 3px solid white;
+        border-bottom: 5px solid white;
     }
 
     .actionLink:hover{
         /* background-color: #38FD66; */
         color: black;
-        border-bottom: 3px solid #34AF56;
+        border-bottom: 5px solid #34AF56;
         text-shadow: 0px 0px 10px white;
     }
 

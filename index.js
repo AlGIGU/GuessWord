@@ -5,7 +5,7 @@ import fileUpload from "express-fileupload"
 import Controller from "./back/controller.js"
 
 let app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const URI = 'mongodb+srv://Georges:georges20232@pocbase.4aoq2rb.mongodb.net/?retryWrites=true&w=majority'
 
 app.use(express.json());

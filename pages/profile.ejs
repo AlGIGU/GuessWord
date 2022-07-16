@@ -4,7 +4,6 @@
 <%- include('./partials/head')%> 
 
 <body>
-<!-- Страница с профилем игрока, где находится вся его статистика -->
     <%-include('./partials/header')%>
     <%if (!userProfile.logined){%>
         <div class="container">
@@ -60,7 +59,7 @@
                     <p class="titleData">Рейтинг: </p>
                     <p class="contentData userCoins"><%= userProfile.coins %></p>
                 </section>
-
+                
                 <section class="dataSection">
                     <p class="titleData">Привилегия: </p>
                     <p class="contentData userStatus" id="userStatus"><%= userProfile.status %></p>
@@ -71,6 +70,6 @@
             </div>
         </div>
         <%}%>
-    <%-include('./partials/scripts')%>
-</body>
-</html>
+        <%-include('./partials/scripts')%>
+    </body>
+    </html>

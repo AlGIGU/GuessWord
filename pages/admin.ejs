@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head') %> 
+
+<body>
+    <%- include('./partials/header')%>
+
+    <div class="container mainContainer">
+        <h1>Пользователи</h1>
+        <template>
+                <section>
+                    <h2 class="title">ID: </h2>
+                    <p class="userId"></p>
+                </section>
+                <section>
+                    <h2 class="title">Имя: </h2>
+                    <p class="userName"></p>
+                </section>
+                <section>
+                    <h2 class="title">Почта: </h2>
+                    <p class="userMail"></p>
+                </section>
+                <section>
+                    <h2 class="title">Счёт: </h2>
+                    <p class="userCoins"></p>
+                </section>
+                <section>
+                    <h2 class="title">Статус: </h2>
+                    <p class="userStatus"></p>
+                </section>
+                <hr class="horizontalLine finalLine">
+                <section>
+                    <button class="changeButton">Изменить</button>
+                    <button class="deleteButton">Удалить</button>
+                </section>
+            </template>
+    </div>
+    
+    <%-include('./partials/scripts')%>
+</body>
+</html>

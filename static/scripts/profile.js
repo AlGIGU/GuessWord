@@ -14,10 +14,6 @@ const changeButton = document.querySelector('.changeButton');
 const deleteButton = document.querySelector('.deleteButton');
 
 changeButton.addEventListener('click', ()=>{
-    let userForm = {
-        name: document.querySelector('.userName').textContent,
-        mail: document.querySelector('.userMail').textContent
-    };
 
     document.querySelector(".userData").remove();
     let formTemplate = document.querySelector('.firstTemplate');

@@ -75,6 +75,29 @@ class Controller{
         });
         res.render('rules', mainObject.getStatus);
     };
+    
+    adminPage(req,res){
+        if (mainObject.userInfo.status != 'Admin'){
+            mainObject.updateStatus({
+                headTitle:"Guess Word",
+                currentLink:"notFound",
+                cssList: ['./front/notFound.css'],
+            });
+    
+            res.render('notFound', mainObject.getStatus);
+            return;
+        };
+
+        mainObject.updateStatus({
+            headTitle:"Admin",
+            cssList:['./front/admin.css'],
+            scriptsList : [
+                './scripts/admin.js',
+            ],
+            currentLink:"/admin"
+        });
+        res.render('admin', mainObject.getStatus);
+    };
 
     exitUser(req,res){
         mainObject.unsetUser();
@@ -115,6 +138,15 @@ class Controller{
     }
 
     // работа с БД
+    async getAllUsers(req,res){
+        try{
+            const users = await User.find({});
+            res.json(users);
+        }catch(e){
+            res.status(500).json('Error');
+        };
+    };
+    
     async updateUser(req,res){
         try{
             let updateBody = {
