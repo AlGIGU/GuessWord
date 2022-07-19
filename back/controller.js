@@ -149,6 +149,15 @@ class Controller{
     
     async updateUser(req,res){
         try{
+
+            // запрос по id (через админку)
+            if (req.body.id){
+                const userDB = await User.findByIdAndUpdate(req.body.id,req.body, {new:true});
+
+                res.json(userDB);
+                return;
+            };
+
             let updateBody = {
                 name: req.body.name,
                 mail:req.body.mail,
@@ -156,20 +165,17 @@ class Controller{
 
             if (req.body.newPassword){
                 updateBody.password = bcrypt.hashSync(req.body.newPassword, 8);
-            } 
-
-            // updateBody.privilege = mainObject.getUser.privilege,
-            // updateBody.coins = mainObject.getStatus.coins
+            };
 
             const userDB = await User.findByIdAndUpdate(mainObject.userInfo.id,updateBody, {new:true});
             
             if (!userDB){
-                throw new Error('Пользователь не найден')
+                throw new Error('Пользователь не найден');
             }
             
             mainObject.updateUser(req.body);
 
-            res.json('Done');
+            res.json(userDB);
         }catch(e){
             res.status(500).json(e.message);
         }
@@ -239,11 +245,17 @@ class Controller{
 
     async deleteUser(req,res){
         try{
-            await User.findByIdAndDelete(mainObject.userInfo.id);
-            mainObject.unsetUser();
+            console.log(req.body);
+            if (req.body.id){
+                await User.findByIdAndDelete(req.body.id);
+            } else {
+                await User.findByIdAndDelete(mainObject.userInfo.id);
+                mainObject.unsetUser();
+            }
 
             res.json("Done");
         }catch(e){
+            console.log(e);
             res.status(500).json(e.message);
         }
     }

@@ -26,10 +26,10 @@ router.get('/getAllUsers', Controller.getAllUsers);
 router.put('/profile',[
     check('name', "Не введено имя").notEmpty(),
     check('mail', "Неправильный формат почты").notEmpty().isEmail(),
-    check('password', "Пароль должен быть длиной от 6 до 10 символов.").notEmpty().isLength({
-        min: passMin,
-        max: passMax
-    })
+    // check('password', "Пароль должен быть длиной от 6 до 10 символов.").notEmpty().isLength({
+    //     min: passMin,
+    //     max: passMax
+    // })
 ], Controller.updateUser);
 
 // DELETE

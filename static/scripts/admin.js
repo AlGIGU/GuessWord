@@ -28,12 +28,11 @@ fetch('/api/getAllUsers', {
         li.innerHTML = userElement;
         ul.append(li);
 
-        ul.lastElementChild.querySelector('.userId').textContent = user._id;
-        ul.lastElementChild.querySelector('.userName').textContent = user.name;
-        ul.lastElementChild.querySelector('.userMail').textContent = user.mail;
-        ul.lastElementChild.querySelector('.userCoins').textContent = user.coins;
-        ul.lastElementChild.querySelector('.userStatus').textContent = user.privilege;
-
+        ul.lastElementChild.querySelector('.userId').textContent = user._id ?? 'undefined';
+        ul.lastElementChild.querySelector('.userName').textContent = user.name ?? 'undefined';
+        ul.lastElementChild.querySelector('.userMail').textContent = user.mail ?? 'undefined';
+        ul.lastElementChild.querySelector('.userCoins').textContent = user.coins ?? 'undefined';
+        ul.lastElementChild.querySelector('.userStatus').textContent = user.privilege ?? 'undefined';
     };
 
     for (let i of document.querySelectorAll('.userStatus')){
@@ -45,6 +44,181 @@ fetch('/api/getAllUsers', {
             i.textContent = "Смерд"
             i.style.color = '#4fd976';
             i.style.textShadow = '0px 0px 10px #4fd976'
-        }
-    }
+        };
+    };
+}).then(()=>{
+        document.querySelector('ul').addEventListener('click', e=>{
+        if (e.target.classList.contains('changeButton')){
+
+            let dataUser = {};
+            let newData = {};
+
+            const INPUT_TITLES = {
+                'ID:' : 'userId',
+                'Имя:' : 'userName',
+                'Почта:' : 'userMail',
+                'Счёт:' : 'userCoins',
+            };
+
+            // изменения данных пользователя
+            let point = e.target.parentElement.parentElement.firstElementChild.nextElementSibling;
+
+            while (point != null & point.querySelector('p') != null){
+
+                let defaultValue = point.querySelector('p').textContent;
+                dataUser[point.querySelector('p').className] = defaultValue;
+
+
+                if (point.querySelector('p').className == 'userStatus'){
+                    const selectorList = [
+                        'User',
+                        'Admin',
+                    ];
+
+                    let selectElem = document.createElement('select');
+                    point.append(selectElem);
+
+                    selectElem = point.querySelector('select');
+                    selectElem.classList.add('userStatus');
+
+                    // Селекторы выбора
+                    for (let i of selectorList){
+                        selectElem.append(document.createElement('option'));
+                        let optionElem = selectElem.lastElementChild;
+
+                        optionElem.textContent = i;
+                        optionElem.value = i;
+                    };
+                } else {
+
+                    let input = document.querySelector('input');
+                    point.append(document.createElement('input'));
+
+                    input = point.querySelector('input');
+                    
+                    
+                    input.classList.add(INPUT_TITLES[point.firstElementChild.textContent]);
+                    input.value = defaultValue;
+                };
+
+                point.querySelector('p').remove();
+                point = point.nextElementSibling;
+            };
+
+            point = e.target.parentElement.parentElement.lastElementChild;
+            point.append(document.createElement('button'));
+            point.append(document.createElement('button'));
+
+            // кнопки взаимодействия с изменениями
+            let saveButton = point.lastElementChild.previousElementSibling;
+            let cancelButton = point.lastElementChild;
+
+            // скрытие старых кнопок
+            point.querySelector('.changeButton').style.display = 'none';
+            point.querySelector('.deleteButton').style.display = 'none';
+
+            // сохранение изменений
+            saveButton.classList.add('saveButton');
+            saveButton.textContent = 'Сохранить';
+
+            saveButton.addEventListener('click', e=>{
+
+                let envir = e.target.parentElement.parentElement;
+                let inputValues = envir.querySelectorAll('input');
+
+                for (let i of inputValues){
+                    newData[i.className.slice(4).toLowerCase()] = i.value;
+                    i.remove()
+                };
+
+                newData.privilege = envir.querySelector('.userStatus').value;
+                envir.querySelector('.userStatus').remove();
+
+                envir = envir.firstElementChild.nextElementSibling;
+
+                for (let i of Object.keys(newData)){
+                    envir.append(document.createElement('p'));
+                    let parag = envir.lastElementChild;
+
+                    if (i == 'privilege'){
+                        parag.classList.add(`userStatus`);
+                    } else {
+                        parag.classList.add(`user${i[0].toUpperCase()+i.slice(1)}`);
+                    };
+
+                    parag.textContent = newData[i];
+
+                    envir = envir.nextElementSibling;
+                };
+
+                cancelButton.remove();
+                saveButton.remove();
+
+                point.querySelector('.changeButton').style.display = 'block';
+                point.querySelector('.deleteButton').style.display = 'block';
+
+                newData.id = point.parentElement.parentElement.querySelector('.userId').textContent;
+
+                // отправка запроса в БД
+                fetch('/api/profile', {
+                    method:"put",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body : JSON.stringify(newData)
+                })
+            });
+            
+            
+            // отмена изменений
+            cancelButton.classList.add('cancelButton');
+            cancelButton.textContent = 'Отмена';
+
+            cancelButton.addEventListener('click', e=>{
+                let envir = e.target.parentElement.parentElement.firstElementChild.nextElementSibling;
+                for (let i of Object.keys(dataUser)){
+                    envir.lastElementChild.remove();
+                    envir.append(document.createElement('p'));
+
+                    let parag = envir.querySelector('p');
+                    parag.classList.add(i);
+                    parag.textContent = dataUser[i];
+
+                    envir = envir.nextElementSibling;
+
+                    saveButton.remove();
+                    cancelButton.remove();
+
+                    point.querySelector('.changeButton').style.display = 'block';
+                    point.querySelector('.deleteButton').style.display = 'block';
+                };
+            });
+
+
+        } else if (e.target.classList.contains('deleteButton')){
+
+            // удаление пользователя
+            if (confirm('Вы уверены, что хотите удалить пользователя?')){
+
+                const userId = {
+                    id: e.target.parentElement.parentElement.querySelector('.userId').textContent
+                };
+                fetch('/api/profile', {
+                    method:'delete',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(userId)
+                }).then(res=>{
+                    if (res.ok){
+                        e.target.parentElement.parentElement.remove();
+                        alert(`Пользователь с ID ${userId.id} успешно удален`);
+                    } else {
+                        alert('Произошла ошибка');
+                    };
+                });
+            };
+        };
+    });
+  
 });
