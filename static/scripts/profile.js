@@ -1,13 +1,22 @@
 const userStatus = document.querySelector('#userStatus');
+const hrLine = document.querySelector('.horizontalLine');
+
+window.addEventListener('load', e=>{
+    hrLine.style.width = '100%';
+    hrLine.style.opacity= '1';
+})
+
 
 if (userStatus.textContent == 'Admin'){
     userStatus.textContent = "Барин"
-    userStatus.style.color = '#e74c4c';
-    userStatus.style.textShadow = '0px 0px 10px #e74c4c'
+    userStatus.classList.add('adminStyle');
+    // userStatus.style.color = '#e74c4c';
+    // userStatus.style.textShadow = '0px 0px 10px #e74c4c'
 } else {
     userStatus.textContent = "Смерд"
-    userStatus.style.color = '#4fd976';
-    userStatus.style.textShadow = '0px 0px 10px #4fd976'
+    userStatus.classList.add('userStyle');
+    // userStatus.style.color = '#4fd976';
+    // userStatus.style.textShadow = '0px 0px 10px #4fd976'
 };
 
 const changeButton = document.querySelector('.changeButton');

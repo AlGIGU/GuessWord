@@ -1,13 +1,15 @@
 .dataSection{
     display: flex;
-    padding-left: 50px;
-    align-items: center;
+    padding-left: 2%;
+    justify-content: space-between;
+    margin-bottom: 1%;
 }
 
 .pageData{
     font-size: 60px;
     text-decoration: underline;
     color: #34AF56;
+    margin-bottom: 2%;
 }
 
 .mainData{
@@ -15,8 +17,7 @@
 }
 
 .titleData{
-    font-size: 30px;
-    margin-right: 20px;
+    font-size: 35px;
     color: #34AF56;
 }
 
@@ -49,6 +50,7 @@ input:focus{
 [name="submitButton"]:hover, [name="submitButton"]:focus,
 .changeButton:hover, .changeButton:focus, .backButton:hover,
 .backButton:focus{
+    color: #fff;
     box-shadow: 0px 0px 10px #34AF56;
 }
 
@@ -70,6 +72,52 @@ input:focus{
     margin-bottom: 20px;
     border: 3px solid #34AF56;
     border-radius: 5px;
-    width: 100%;
+    width: 0%;
+    opacity: 0;
     max-width: 800px;
+    transition: all 3s ease 1s;
+}
+
+.contentData{
+    font-size: 35px;
+}
+
+.userData{
+    max-width: 500px;
+    width: 100%;
+}
+
+/* status style */
+.adminStyle{
+    color: #e74c4c;
+    text-shadow: 0px 0px 0px #e74c4c;
+    animation: 2s infinite alternate adminMerc;
+    transition: animation 2s cubic-bezier(.55,-0.45,.4,1.51) 1s;
+}
+
+@keyframes adminMerc {
+    from{
+        text-shadow: 0px 0px 0px #e74c4c;
+    }
+
+    to{        
+        text-shadow: 0px 0px 10px #e74c4c;
+    }
+}
+
+.userStyle{
+    color: #4fd976;
+    text-shadow: 0px 0px 0px #4fd976;
+    animation: 2s infinite alternate userMerc;
+    transition: all 2s cubic-bezier(.55,-0.45,.4,1.51) 1s;
+}
+
+@keyframes userMerc {
+    from{
+        text-shadow: 0px 0px 0px #4fd976;
+    }
+
+    to{        
+        text-shadow: 0px 0px 10px #4fd976;
+    }
 }

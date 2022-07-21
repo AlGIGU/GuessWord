@@ -71,7 +71,10 @@ class Controller{
         mainObject.updateStatus({
             headTitle:"Guess Word",
             cssList:['./front/rules.css'],
-            currentLink:"/rules"
+            currentLink:"/rules",
+            scriptsList : [
+                "./scripts/rules.js",
+            ]
         });
         res.render('rules', mainObject.getStatus);
     };
@@ -204,37 +207,45 @@ class Controller{
 
     async postUser(req,res){
         try{
-            if (Object.keys(req.body).length == 0) throw new Error('Suck');
-            
+
+            if (Object.keys(req.body).length == 0) throw new Error('Пустое тело запроса.');
+
+            const fromAdmin = req.body.fromAdmin ?? false;
+            let newUser = req.body;
+
+            delete newUser.fromAdmin;
+
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()){
                 throw new Error("Ошибка валидации");
-            }
+            };
 
             if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
 
             // хэширование пароля
-            let newUser = req.body;
             newUser.password = bcrypt.hashSync(newUser.password, 8);
             
             // создание экземпляра по схеме
-            const createdUser  = new User(newUser);
+            const createdUser = new User(newUser);
 
             createdUser.save(err=>{
                 if (err){
                     throw new Error('Ошибка сохранения в БД.');
                 }
             });
-            mainObject.updateUser({
-                logined : true,
-                name : req.body.name,
-                coins : 0,
-                mail : req.body.mail,
-                status: req.body.privilege ?? "User",
-            });
+            
+            if (!fromAdmin){   
+                mainObject.updateUser({
+                    logined : true,
+                    name : req.body.name,
+                    coins : 0,
+                    mail : req.body.mail,
+                    status: req.body.privilege ?? "User",
+                });
+            };
 
             res.json('Done');       
 
@@ -245,7 +256,6 @@ class Controller{
 
     async deleteUser(req,res){
         try{
-            console.log(req.body);
             if (req.body.id){
                 await User.findByIdAndDelete(req.body.id);
             } else {
@@ -255,7 +265,6 @@ class Controller{
 
             res.json("Done");
         }catch(e){
-            console.log(e);
             res.status(500).json(e.message);
         }
     }

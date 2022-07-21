@@ -2,31 +2,66 @@ h1{
     font-size: 60px;
     text-decoration: underline;
     color: #34AF56;
+    margin-bottom: 2%;
 }
 
-ul{
-    margin-left: 50px;
+ol{
+    margin-left: 2%;
+    margin-bottom: 2%;
 }
 
 
-li, .mainContainer p{
+li, .getLucky{
     list-style-type: none;
     font-size: 40px;
+}
+
+li{
+    margin-bottom: 2%;
 }
 li::before{
     content: '♖ ';
     color: #34AF56;
-    text-shadow: 0px 0px 10px #34AF56;
+    opacity: 0;
+    position: fixed;
+    transform: translate(-100%,-6%);
+
+    transition: all 2s cubic-bezier(.55,-0.45,.4,1.51) 0.2s;
 }
 
-.mainContainer p{
-    padding-left: 50px;
+.stylized::before{
+    transform: translate(-100%,-6%);
+    opacity: 1;
+    text-shadow: 0px 0px 0px #34AF56;
+    animation: 1.5s infinite alternate merc;
+}
+
+@keyframes merc {
+    from{
+        text-shadow: 0px 0px 0px #34AF56;
+    }
+    to{
+        text-shadow: 0px 0px 10px #34AF56;
+    }
+}
+
+.getLucky{
+    padding-left: 5%;
+    width: 100%;
 }
 
 .horizontalLine{
-    margin-bottom: 20px;
+    margin-bottom: 2%;
     border: 3px solid #34AF56;
     border-radius: 5px;
+
+    width: 0%;
+    opacity: 0;
+    
+    transition: all 3s ease 1s;
+}
+
+.rules__body{
     width: 100%;
-    max-width: 1240px;
+    max-width: 900px;
 }

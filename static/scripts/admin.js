@@ -1,4 +1,3 @@
-
 fetch('/api/getAllUsers', {
     method:"GET",
     headers: {
@@ -221,4 +220,125 @@ fetch('/api/getAllUsers', {
         };
     });
   
+})
+    // действия после загрузки сайта
+
+    
+    // стилизация
+window.addEventListener('load', e=>{
+    document.querySelector('.users__title').classList.add('titleStyle');
+    const liList = document.querySelectorAll('li');
+    console.log(liList);
+
+    for(let i of document.querySelectorAll('li')){
+        i.classList.add('liStyle');
+    }  
+})
+
+// добавление нового пользователя(popup)
+const addUserButton = document.querySelector('.create__new__user');
+const popup = document.querySelector('#popup');
+const popupContent = document.querySelector('.popup__content');
+
+const popupCloseButton = document.querySelector('.popup__close__button');
+const popupSendButton = document.querySelector('.popup__send__button');
+
+const userForm = popupContent.querySelector('form');
+
+addUserButton.addEventListener('click', e=>{
+    e.preventDefault();
+    popup.style.opacity = '1';
+    popup.style.visibility = 'visible';
+    
+    popupContent.style.transform = "perspective(600px) translate(0px, 0px) rotateX(0)";
+    popupContent.style.opacity = '1';
+});
+
+// закрытие popup
+
+function closePopup(e){
+    e.preventDefault();
+    userForm.reset();
+
+    popup.style.opacity = '0';
+    popup.style.visibility = 'hidden';
+    
+    popupContent.style.transform = "perspective(600px) translate(0px, -100%) rotateX(45deg)";
+    popupContent.style.opacity = '0';    
+    
+    // очистка формы
+};
+
+popupCloseButton.addEventListener('click', e=>closePopup(e));
+
+// валидация формы
+
+
+userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
+userForm.mail.setCustomValidity('Поле почты не должно быть пустым.');
+userForm.password.setCustomValidity('Поле пароля не должно быть пустым.');
+userForm.rePassword.setCustomValidity('Поле пароля не должно быть пустым.');
+
+userForm.name.addEventListener('input', e=>{
+    if (userForm.name.value.length > 2){
+        userForm.name.setCustomValidity('');
+    } else {
+        userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
+    }
+});
+
+userForm.mail.addEventListener('input', e=>{
+    
+    let reg = new RegExp('^[a-zA-Z0-9._]+[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$');
+    userForm.mail.setCustomValidity('');
+    
+    if (userForm.mail.value.length == 0){
+        userForm.mail.setCustomValidity('Поле почты не должно быть пустым.');
+    } else if (!reg.test(userForm.mail.value)){
+        userForm.mail.setCustomValidity('Неправильный формат почты.');
+    }
+});
+
+userForm.password.addEventListener('input', e=>{
+    userForm.password.setCustomValidity('');
+    if (userForm.password.value.length < 6){
+        userForm.password.setCustomValidity('Поле пароля должно быть длиной от 6 символов.');
+    } 
+});
+
+userForm.rePassword.addEventListener('input', e=>{
+    userForm.rePassword.setCustomValidity('');
+    
+    if (userForm.rePassword.value != userForm.password.value){
+        userForm.rePassword.setCustomValidity('Пароли не совпадают');
+    };
+});
+
+// отправка новых данных
+popupSendButton.addEventListener("click", e=>{
+    e.preventDefault();
+    
+    const dataUser = {
+        name : userForm.name.value,
+        mail : userForm.mail.value,
+        password : userForm.password.value,
+        coins: userForm.coins.value ?? 0,
+        privilege: userForm.status.value ?? "User",
+        fromAdmin : true
+    };
+    
+    fetch('/api/reg', {
+        method:"post",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(dataUser)
+    }).then(response=>{
+        if (response.ok){
+            alert("Пользователь успешно зарегистрирован.");
+            window.location.href = window.location.href; 
+        } else {
+            alert('Ошибка на сервере')
+        };
+    });
 });

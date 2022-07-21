@@ -51,7 +51,6 @@ router.post('/reg',[
     check('name', "Поле имя не должно быть пустым").notEmpty(),
     check("password", "Пароль должен быть длиной от 6 до 10 символов").notEmpty().isLength({
         min:6,
-        max:10
     }),
     check("mail", "Неправильный формат почты").notEmpty().isEmail(),
 ], Controller.postUser);

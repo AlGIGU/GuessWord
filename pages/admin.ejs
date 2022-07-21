@@ -6,7 +6,10 @@
     <%- include('./partials/header')%>
 
     <div class="container mainContainer">
-        <h1>Пользователи</h1>
+        <div class="main__title">
+            <h1 class="users__title">Пользователи</h1>
+            <button class="create__new__user">+</button>
+        </div>
         <template>
                 <section>
                     <h2 class="title">ID:</h2>
@@ -33,9 +36,51 @@
                     <button class="changeButton">Изменить</button>
                     <button class="deleteButton">Удалить</button>
                 </section>
-            </template>
+        </template>
     </div>
-    
+    <div id="popup" class="popup">
+        <div class="popup__body">
+            <div class="popup__content">
+                <div class="popup__title">Создать нового пользователя</div>
+                <div class="popup__form">
+                    <form action="">
+                        <label for="name">
+                            <p class="inputTitle">Имя:</p>
+                            <input name="name" type="text">
+                        </label>
+                        <label for="mail">
+                            <p class="inputTitle">Почта:</p>
+                            <input name="mail" type="mail">
+                        </label>
+                        <label for="coins">
+                            <p class="inputTitle">Счет:</p>
+                            <input name="coins" type="number">
+                        </label>
+                        <label for="status">
+                            <p class="inputTitle">Статус:</p>
+                            <select class="status" name="status">
+                                <option value="User">User</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </label>
+                        <label for="password">
+                            <p class="inputTitle">Пароль:</p>
+                            <input name="password" type="password">
+                        </label>
+                        <label for="rePassword">
+                            <p class="inputTitle">Повтор пароля:</p>
+                            <input name="rePassword" type="password">
+                        </label>
+                        <hr class="horizontalLine popupLine">
+                        <section>
+                            <button class="popup__send__button" type="submit">Отправить</button>
+                            <button class="popup__close__button">Отмена</button>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <%-include('./partials/scripts')%>
 </body>
 </html>

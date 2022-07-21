@@ -13,24 +13,35 @@
 
 /* container */
     .container{
-        padding: 0px 200px;
-        line-height: 2;
+        width: 100%;
+        max-width: 1500px;
+        padding: 0px 10%;
+        /* line-height: 2; */
     }
 
 /* header */
     header{
-        padding: 10px 0px;
+        padding: 0.5% 0px;
         display: flex;
         /* padding-left: 200px; */
+
         background-color: white;
         border-bottom: 2.5px solid white;
         max-height: 100px;
-        height: 100%;
+
+        height: 55px;
+        margin-bottom: 1.5%;
+        width: 100%;
     }
 
 /* header box */
     .headerBox{
-        margin-right: 800px;
+        margin-right: auto;
+        max-width: 300px;
+        width: 100%;
+        margin: auto 0;
+        justify-content: space-between;
+        display: flex;
     }
 
     .headerBox, a, img{
@@ -43,25 +54,32 @@
 
 /* logo */
     #mainLogo{
-        margin-right: 15px;
-        max-width: 50px;
         max-height: 50px;
+        max-width: 50px;
         background-color: #34AF56;
         border-radius: 50%;
+        margin: auto 0;
+        
+        margin-right: 1%;
     }
 
 /* navbar */
     nav{        
         background-color: inherit;
+        width: 100%;
+        margin: auto 0;
+
     }
 
 /* controlLink */
     .controlLink{
         color: black;
-        padding: 5px;
+        padding: 0.5%;
         border-bottom: 5px solid white;
         transition: all 0.3s linear;
     };
+
+
 
     .controlLink:hover, .controlLink:focus{
         border-bottom: 5px solid #34AF56;
@@ -69,16 +87,11 @@
         color: black;
     } 
 
-    .action{
-        border-radius: 0;
-        border-bottom: 5px solid #34AF56;
-        font-weight: 800;
-        color: black;
-    }
+   
 
 /* actionLink */
     .actionLink{
-        margin-right: 10px;
+        margin-right: 10%;
         text-decoration: none;
         /* background-color: white; */
         /* padding: 0px 20px; */
@@ -92,21 +105,28 @@
         /* background-color: #38FD66; */
         color: black;
         border-bottom: 5px solid #34AF56;
-        text-shadow: 0px 0px 10px white;
     }
 
 
 /* profile */
     .toProfile{
         display: flex;
-        padding: 2px 5px;
         cursor: pointer;
-        border-bottom: 5px solid white;
-        transition: all 0.1s linear;
+        /* border-bottom: 5px solid white; */
+        transition: all 0.1s ease;
+        margin: auto 0;
+        margin-right: 15%;
+        padding: 0;
+    }
+
+
+
+    .toProfile p{
+        margin: auto 0;
     }
 
     .toProfile:hover, .toProfile:focus{
-        border-bottom: 5px solid #34AF56;
+        /* border-bottom: 5px solid #34AF56; */
     }
 
     .userIcon{
@@ -115,16 +135,81 @@
     }
 
     #profileName{
+        display: flex;
         color: black;
-        margin-right: 20px;
     }
 
     .exitButton{
         text-decoration: none;
         color: black;
         transition: all 0.2s linear;
+        margin: auto 0;
     }
 
     .exitButton:focus, .exitButton:hover{
         color: #34AF56;
     }
+
+.user__part{
+    display: flex;
+    margin: auto 0;
+}
+
+.control__row{
+    min-width: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+a, .toProfile{
+    position: relative;
+}
+
+
+a::after, .toProfile::after{
+    content: '';
+    display: block;
+    border: 3px solid #34AF56;
+    opacity: 0;
+    width: 0%;
+    border-radius: 20px;
+    position: absolute;
+    max-width: 85px;
+    top: 100%;
+    transition: width 0.5s linear 0s, opacity 0.5s linear 0.1s;    
+    
+    /* border-radius: 0; */
+    /* border-bottom: 5px solid #34AF56; */
+    /* font-weight: 800; */
+    /* color: black; */
+}
+
+.toProfile::after{
+    max-width: 150px;
+}
+
+a:hover::after, .toProfile:hover::after{
+    transition: width 0.5s linear 0s, opacity 0.5s linear 0s;    
+    width: 100%;
+    opacity: 1;
+}
+
+.action{
+    font-weight: 800;
+}
+
+/* .action::after{
+    content: '';
+    display: block;
+    border: 3px solid #34AF56;
+    opacity: 1;
+    width: 0.01%;
+    border-radius: 20px;
+    position: absolute;
+    max-width: 85px;
+    top: 100%;
+    left: 50%;
+    right: -50%;
+    transition: all 1s ease 0s;
+} */

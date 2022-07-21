@@ -8,30 +8,33 @@
     <div class="container">
         <h1 class="regTitle">Регистрация</h1>
         <form id="mainForm" method="post" enctype="application/x-www-form-urlencoded">
-            <!-- <section> -->
-                <label class="inputTitle">Имя</label>            
-                <input class="inputArea" type="text" name="name">
-            <!-- </section> -->
-            
-            <!-- <section> -->
-                <label class="inputTitle">Почта</label>
-                <input class="inputArea" type="text" name="mail"> 
-            <!-- </section> -->
-            
-            <!-- <section> -->
-                <label class="inputTitle">Пароль</label>
-                <input class="inputArea" type="password" name="pass"> 
-            <!-- </section> -->
-            
-            <!-- <section> -->
-                <label class="inputTitle">Повторите пароль</label>
-                <input class="inputArea" type="password" name="rePass"> 
-            <!-- </section> -->
-            
-            <input id="submit" type="submit" value="Отправить">
+            <d class="form__body">
+                <div class="form__content">
+                    <section>
+                        <label class="inputTitle">Имя</label>            
+                        <input class="inputArea" type="text" name="name">
+                    </section>
+                    
+                    <section>
+                        <label class="inputTitle">Почта</label>
+                        <input class="inputArea" type="text" name="mail"> 
+                    </section>
+                    
+                    <section>
+                        <label class="inputTitle">Пароль</label>
+                        <input class="inputArea" type="password" name="pass"> 
+                    </section>
+                    
+                    <section>
+                        <label class="inputTitle">Повторите пароль</label>
+                        <input class="inputArea" type="password" name="rePass"> 
+                    </section>
+                </div>
+                <button id="submit" type="submit">Отправить</button>
+            </div>
         </form>
     </div>
         
     <%-include('./partials/scripts')%>
-    </body>
+</body>
     </html>
