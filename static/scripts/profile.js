@@ -1,10 +1,6 @@
 const userStatus = document.querySelector('#userStatus');
 const hrLine = document.querySelector('.horizontalLine');
 
-window.addEventListener('load', e=>{
-    hrLine.style.width = '100%';
-    hrLine.style.opacity= '1';
-})
 
 
 if (userStatus.textContent == 'Admin'){
@@ -15,7 +11,7 @@ if (userStatus.textContent == 'Admin'){
 } else {
     userStatus.textContent = "Смерд"
     userStatus.classList.add('userStyle');
-    // userStatus.style.color = '#4fd976';
+    userStatus.style.color = '#4fd976';
     // userStatus.style.textShadow = '0px 0px 10px #4fd976'
 };
 

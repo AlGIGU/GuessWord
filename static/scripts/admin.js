@@ -127,7 +127,7 @@ fetch('/api/getAllUsers', {
 
                 for (let i of inputValues){
                     newData[i.className.slice(4).toLowerCase()] = i.value;
-                    i.remove()
+                    i.remove();
                 };
 
                 newData.privilege = envir.querySelector('.userStatus').value;
@@ -165,7 +165,7 @@ fetch('/api/getAllUsers', {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body : JSON.stringify(newData)
-                })
+                });
             });
             
             
@@ -210,8 +210,13 @@ fetch('/api/getAllUsers', {
                     body: JSON.stringify(userId)
                 }).then(res=>{
                     if (res.ok){
-                        e.target.parentElement.parentElement.remove();
                         alert(`Пользователь с ID ${userId.id} успешно удален`);
+
+                        e.target.parentElement.parentElement.classList.add('deletedUser');
+                        setTimeout(() => {
+                            e.target.parentElement.parentElement.remove();
+                        }, 800);
+
                     } else {
                         alert('Произошла ошибка');
                     };
@@ -219,21 +224,33 @@ fetch('/api/getAllUsers', {
             };
         };
     });
-  
-})
-    // действия после загрузки сайта
-
     
+}).then(value=>{
+    
+    // действия после загрузки сайта
     // стилизация
-window.addEventListener('load', e=>{
+    // li
     document.querySelector('.users__title').classList.add('titleStyle');
     const liList = document.querySelectorAll('li');
+    let animationTime = 0.5;
     console.log(liList);
 
-    for(let i of document.querySelectorAll('li')){
+    for(let i of liList){
         i.classList.add('liStyle');
-    }  
-})
+        i.style.animation = `liStart 2s 1 forwards ease ${animationTime}s`;
+
+        if (animationTime <= 1.5){
+            console.log('<=2')
+            animationTime += 0.35;
+        } else if (animationTime >= 2){
+            console.log('>3')
+            animationTime = 0.2;
+        } else {
+            console.log('>2')
+            animationTime += 0.05;
+        }
+    };
+});
 
 // добавление нового пользователя(popup)
 const addUserButton = document.querySelector('.create__new__user');
@@ -254,10 +271,12 @@ addUserButton.addEventListener('click', e=>{
     popupContent.style.opacity = '1';
 });
 
-// закрытие popup
 
+// закрытие popup
 function closePopup(e){
     e.preventDefault();
+
+    // очистка формы
     userForm.reset();
 
     popup.style.opacity = '0';
@@ -265,15 +284,11 @@ function closePopup(e){
     
     popupContent.style.transform = "perspective(600px) translate(0px, -100%) rotateX(45deg)";
     popupContent.style.opacity = '0';    
-    
-    // очистка формы
 };
 
 popupCloseButton.addEventListener('click', e=>closePopup(e));
 
 // валидация формы
-
-
 userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
 userForm.mail.setCustomValidity('Поле почты не должно быть пустым.');
 userForm.password.setCustomValidity('Поле пароля не должно быть пустым.');
@@ -284,7 +299,7 @@ userForm.name.addEventListener('input', e=>{
         userForm.name.setCustomValidity('');
     } else {
         userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
-    }
+    };
 });
 
 userForm.mail.addEventListener('input', e=>{
@@ -303,7 +318,7 @@ userForm.password.addEventListener('input', e=>{
     userForm.password.setCustomValidity('');
     if (userForm.password.value.length < 6){
         userForm.password.setCustomValidity('Поле пароля должно быть длиной от 6 символов.');
-    } 
+    };
 });
 
 userForm.rePassword.addEventListener('input', e=>{
@@ -322,17 +337,19 @@ popupSendButton.addEventListener("click", e=>{
         name : userForm.name.value,
         mail : userForm.mail.value,
         password : userForm.password.value,
-        coins: userForm.coins.value ?? 0,
+        coins : userForm.coins.value || 0,        
         privilege: userForm.status.value ?? "User",
         fromAdmin : true
     };
     
+
     fetch('/api/reg', {
         method:"post",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(dataUser)
+
     }).then(response=>{
         if (response.ok){
             alert("Пользователь успешно зарегистрирован.");

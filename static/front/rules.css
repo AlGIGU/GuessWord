@@ -1,39 +1,76 @@
-h1{
+.rules__title{
     font-size: 60px;
-    text-decoration: underline;
     color: #34AF56;
-    margin-bottom: 2%;
+    margin: 0;
+
+    margin-bottom: 5%;
+    position: relative;
+    max-width: 250px;
+
+    font-weight: 700;
+}
+
+.rules__title::after{
+    content: '';
+    display: block;
+    position: absolute;
+
+    border: 4px solid #34AF56;
+    border-radius: 20px;
+    width: 100%;
+
+    opacity: 0;
+    width: 0%;
+    animation: title__after__anim 2s 1 forwards ease 2s;
+}
+
+@keyframes title__after__anim {
+    from{
+        opacity: 0;
+        width: 0%;
+    }
+    to{
+        opacity: 1;
+        width: 100%;
+    }
 }
 
 ol{
     margin-left: 2%;
     margin-bottom: 2%;
+    width: 100%;
 }
 
 
 li, .getLucky{
     list-style-type: none;
     font-size: 40px;
+    opacity: 0;
 }
 
 li{
     margin-bottom: 2%;
 }
+
 li::before{
     content: '♖ ';
     color: #34AF56;
     opacity: 0;
+
     position: fixed;
-    transform: translate(-100%,-6%);
-
-    transition: all 2s cubic-bezier(.55,-0.45,.4,1.51) 0.2s;
-}
-
-.stylized::before{
-    transform: translate(-100%,-6%);
+    transform: translate(-100%,-12%);
     opacity: 1;
+
     text-shadow: 0px 0px 0px #34AF56;
     animation: 1.5s infinite alternate merc;
+    transition: all 2s cubic-bezier(.55,-0.45,.4,1.51) 0.2s;
+
+    font-size: 50px;
+}
+
+.stylized__hr{
+    opacity: 1;
+    width:100%;
 }
 
 @keyframes merc {
@@ -45,23 +82,48 @@ li::before{
     }
 }
 
+@keyframes li__anim{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
 .getLucky{
     padding-left: 5%;
     width: 100%;
+    opacity: 0;
+
+    font-style: italic;
+    text-align: right;
 }
 
 .horizontalLine{
     margin-bottom: 2%;
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
     border-radius: 5px;
 
     width: 0%;
     opacity: 0;
     
     transition: all 3s ease 1s;
+    animation: hr__begin 2s 1 forwards ease 2s;
+}
+
+@keyframes hr__begin {
+    from {
+        opacity: 0;
+        width: 0%;
+    }
+    to {
+        opacity: 1;
+        width: 100%;
+    }
 }
 
 .rules__body{
     width: 100%;
-    max-width: 900px;
+    max-width: 1500px;
 }

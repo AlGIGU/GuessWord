@@ -1,5 +1,7 @@
 const toProfileButton = document.querySelector('.toProfile');
 const exitButton = document.querySelector('.exitButton');
+const headerBox = document.querySelector('.headerBox');
+
 
 if (toProfileButton){
     toProfileButton.addEventListener('click', ()=>{
@@ -24,3 +26,9 @@ if (exitButton){
         });
     });
 };
+
+if (headerBox.querySelectorAll('*').length == 3){
+    headerBox.classList.add('for__three__items__style');
+} else {
+    headerBox.classList.add('for__two__items__style');
+}

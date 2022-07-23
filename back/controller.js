@@ -213,8 +213,10 @@ class Controller{
             const fromAdmin = req.body.fromAdmin ?? false;
             let newUser = req.body;
 
+            console.log(req.body);
+            
             delete newUser.fromAdmin;
-
+            
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()){
@@ -233,6 +235,7 @@ class Controller{
 
             createdUser.save(err=>{
                 if (err){
+                    console.log(err.message);
                     throw new Error('Ошибка сохранения в БД.');
                 }
             });

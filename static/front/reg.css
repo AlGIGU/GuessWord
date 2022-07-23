@@ -1,9 +1,38 @@
 /* text */
 .regTitle{
     font-size: 60px;
-    text-decoration: underline;
     color: #34AF56;
     margin-bottom: 2%;
+
+    position: relative;
+    max-width: 390px;
+    width: 100%;
+
+    font-weight: 700;
+}
+
+
+.regTitle::after{
+    content: '';
+    display: block;
+    border: 4px solid #34AF56;
+
+    border-radius: 20px;
+    width: 0%;
+    opacity: 0;
+
+    animation: title__after 1.5s 1 forwards ease 0.7s;
+}
+
+@keyframes title__after {
+    from{
+        opacity: 0;
+        width: 0%;
+    }
+    to{
+        opacity: 1;
+        width: 100%;
+    }
 }
 
 label{
@@ -21,7 +50,14 @@ input{
 
 input:focus{
     box-shadow: 0px 0px 10px #34AF56;
-    border: 3px solid #34AF56;
+}
+
+.input__incorrect{
+    border: 3px solid rgb(179, 18, 18);
+}
+
+.input__incorrect:focus{
+    box-shadow: 0px 0px 10px rgb(179, 18, 18);
 }
 
 input[type="file"]{
@@ -34,11 +70,14 @@ input[type="file"]{
     cursor: pointer;
     border: 2px solid #34AF56;
     border-radius: 20px;
+
     outline: none;
     transition: all 0.3s linear;
     background-color: #34AF56;
-    padding: 1.5% 2%;
 
+    padding: 1.5% 2%;
+    opacity: 0;
+    visibility: hidden;
 }
 
 #submit:hover{
@@ -49,7 +88,6 @@ input[type="file"]{
 /* */
     label{
         display: block;
-        margin-left: 5%;
     }
 
 
@@ -64,4 +102,42 @@ section{
 
 .form__content{
     margin-bottom: 5%;
+}
+
+.submit__correct{
+    transition: all 2s ease 0s;
+    animation: enter__submit__button 1s 1 forwards ease 0s;
+}
+
+.submit__incorrect{
+    transition: all 2s ease 0s;
+    animation: exit__submit__button 1s 1 forwards ease 0s;
+}
+
+
+@keyframes enter__submit__button {
+    from {
+        transform: translate(-200%, 0%);
+        opacity: 0;
+        visibility: hidden;    
+    }
+    to {
+        transform: translate(0%, 0%);
+        opacity: 1;
+        visibility: visible;    
+    }
+}
+
+@keyframes exit__submit__button {
+    from{
+        transform: translate(0%, 0%);
+        opacity: 1;
+        visibility: visible;
+    }
+    to{
+        transform: translate(-200%, 0%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    
 }
