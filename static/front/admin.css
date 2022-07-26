@@ -45,12 +45,12 @@ li::before{
     opacity: 0;
     
     text-shadow: 0px 0px 2px #34AF56; 
-    transition: all 2s linear 2s;
+    transition: all 1s linear 1s;
 }
 
 .liStyle::before{
     opacity: 1;
-    animation: liStyleSymb 0.5s infinite alternate 1s;
+    animation: liStyleSymb 1.5s infinite alternate 1s;
 }
 
 @keyframes liStyleSymb {
@@ -78,12 +78,10 @@ input,.popup__form select,.create__new__user, select.userStatus,
 .saveButton, .cancelButton,.changeButton, .deleteButton,
 .popup__send__button, .popup__close__button{
     border-radius: 20px;
-    /* margin-right: 20px;
-    margin-left: 20px; */
     padding: 2px 10px;
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
+
     outline: none;
-    /* transition: border 0.3s linear; */
     width: 100%;
     max-width: 200px;
 }
@@ -121,7 +119,7 @@ input:focus, select.status:focus{
 
 .deleteButton{
     background-color: inherit;
-    border: 3px solid #c72323;
+    border: 4px solid #c72323;
     color: #c72323
 }
 
@@ -140,7 +138,7 @@ input:focus, select.status:focus{
 
 /* hr */
 .horizontalLine{
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
     width: 100%;
 }
 
@@ -247,24 +245,24 @@ input:focus, select.status:focus{
 
 ul{
     width: 100%;
-    max-width: 560px;
+    /* max-width: 560px; */
 }
 
 .mainContainer{
     width: 100%;
-    max-width: 560px;
 }
 
 
 .users__title{
     font-size: 60px;
     color: #34AF56;
+    font-weight: 700;
 }
 
 
 .users__title::after{
     content: '';
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
     border-radius: 20px;    
 
     display: block;
@@ -288,4 +286,14 @@ ul{
     transform: translate(-200%, 0%) rotate(45deg) rotatex(45deg);
     opacity: 0;
     transition: all 1s ease 0s;
+}
+
+.user__status__style{
+    color: rgb(79, 217, 118); 
+    text-shadow: rgb(79, 217, 118) 0px 0px 10px;
+}
+
+.admin__status__style{
+    color: rgb(231, 76, 76); 
+    text-shadow: rgb(231, 76, 76) 0px 0px 10px;
 }

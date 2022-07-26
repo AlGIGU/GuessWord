@@ -50,6 +50,7 @@ li, .getLucky{
 
 li{
     margin-bottom: 2%;
+    position: relative;
 }
 
 li::before{
@@ -57,7 +58,7 @@ li::before{
     color: #34AF56;
     opacity: 0;
 
-    position: fixed;
+    position: absolute;
     transform: translate(-100%,-12%);
     opacity: 1;
 

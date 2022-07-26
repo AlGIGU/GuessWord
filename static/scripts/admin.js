@@ -36,13 +36,11 @@ fetch('/api/getAllUsers', {
 
     for (let i of document.querySelectorAll('.userStatus')){
         if (i.textContent == "Admin"){
-            i.textContent = "Барин"
-            i.style.color = '#e74c4c'
-            i.style.textShadow = '0px 0px 10px #e74c4c'
+            i.textContent = "Барин";
+            i.classList.add('admin__status__style');
         } else {
-            i.textContent = "Смерд"
-            i.style.color = '#4fd976';
-            i.style.textShadow = '0px 0px 10px #4fd976'
+            i.textContent = "Смерд";
+            i.classList.add('user__status__style');
         };
     };
 }).then(()=>{
@@ -65,10 +63,11 @@ fetch('/api/getAllUsers', {
             while (point != null & point.querySelector('p') != null){
 
                 let defaultValue = point.querySelector('p').textContent;
+                console.log(point.querySelector('p').className);
                 dataUser[point.querySelector('p').className] = defaultValue;
 
 
-                if (point.querySelector('p').className == 'userStatus'){
+                if (point.querySelector('p').classList.contains('userStatus')){
                     const selectorList = [
                         'User',
                         'Admin',
@@ -90,12 +89,14 @@ fetch('/api/getAllUsers', {
                     };
                 } else {
 
-                    let input = document.querySelector('input');
                     point.append(document.createElement('input'));
 
-                    input = point.querySelector('input');
+                    let input = point.querySelector('input');
                     
                     
+                    if (point.firstElementChild.textContent=='Счёт:'){
+                        input.setAttribute('type', 'number');
+                    }
                     input.classList.add(INPUT_TITLES[point.firstElementChild.textContent]);
                     input.value = defaultValue;
                 };
@@ -141,6 +142,13 @@ fetch('/api/getAllUsers', {
 
                     if (i == 'privilege'){
                         parag.classList.add(`userStatus`);
+                        if (newData[i] == 'Admin'){
+                            newData[i] = 'Барин';
+                            parag.classList.add('admin__status__style');
+                        } else {
+                            newData[i] = 'Смерд';
+                            parag.classList.add('user__status__style');
+                        }
                     } else {
                         parag.classList.add(`user${i[0].toUpperCase()+i.slice(1)}`);
                     };
@@ -197,8 +205,7 @@ fetch('/api/getAllUsers', {
         } else if (e.target.classList.contains('deleteButton')){
 
             // удаление пользователя
-            if (confirm('Вы уверены, что хотите удалить пользователя?')){
-
+            showQuestion('Вы уверены, что хотите удалить пользователя?', ()=>{
                 const userId = {
                     id: e.target.parentElement.parentElement.querySelector('.userId').textContent
                 };
@@ -210,7 +217,7 @@ fetch('/api/getAllUsers', {
                     body: JSON.stringify(userId)
                 }).then(res=>{
                     if (res.ok){
-                        alert(`Пользователь с ID ${userId.id} успешно удален`);
+                        showCorrect(`Пользователь с ID ${userId.id} успешно удален`);
 
                         e.target.parentElement.parentElement.classList.add('deletedUser');
                         setTimeout(() => {
@@ -218,10 +225,12 @@ fetch('/api/getAllUsers', {
                         }, 800);
 
                     } else {
-                        alert('Произошла ошибка');
+                        showWrong('Ошибка на сервере');
                     };
                 });
-            };
+            }, ()=>{
+
+            })
         };
     });
     
@@ -233,20 +242,16 @@ fetch('/api/getAllUsers', {
     document.querySelector('.users__title').classList.add('titleStyle');
     const liList = document.querySelectorAll('li');
     let animationTime = 0.5;
-    console.log(liList);
 
     for(let i of liList){
         i.classList.add('liStyle');
-        i.style.animation = `liStart 2s 1 forwards ease ${animationTime}s`;
+        i.style.animation = `liStart 1.5s 1 forwards ease ${animationTime}s`;
 
         if (animationTime <= 1.5){
-            console.log('<=2')
             animationTime += 0.35;
         } else if (animationTime >= 2){
-            console.log('>3')
             animationTime = 0.2;
         } else {
-            console.log('>2')
             animationTime += 0.05;
         }
     };
@@ -352,10 +357,11 @@ popupSendButton.addEventListener("click", e=>{
 
     }).then(response=>{
         if (response.ok){
-            alert("Пользователь успешно зарегистрирован.");
-            window.location.href = window.location.href; 
+            showCorrect('Пользователь успешно зарегистрирован', ()=>{
+                window.location.href = window.location.href; 
+            })
         } else {
-            alert('Ошибка на сервере')
+            showWrong('Ошибка на сервере');
         };
     });
 });

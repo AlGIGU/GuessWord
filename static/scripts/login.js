@@ -12,9 +12,13 @@ function getFormObj(form){
 };
 
 
+
 sendForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
 
+    // делает кнопку неактивной
+    sendForm.submit.setAttribute('disabled', true);
+    
     let postContent = getFormObj(sendForm);
 
     let res = await fetch('/api/login', {
@@ -24,14 +28,15 @@ sendForm.addEventListener('submit', async (e)=>{
         },
         body: JSON.stringify(postContent)
     });
-
-
+    
+    
     if (res.ok){
-
         // в случае успеха возвращаемся на главную страницу
-        alert('Успешный вход');
-        window.location.href = window.location.href.slice(0, window.location.href.length - 5); 
+        showCorrect('Успешный вход' , ()=>{
+            window.location.href = window.location.href.slice(0, window.location.href.length - 5); 
+        })
     } else {
-        alert("На стороне сервера произошла ошибка входа.");
+        sendForm.submit.removeAttribute('disabled');
+        showWrong('Неправильный логин или пароль');
     }
 });

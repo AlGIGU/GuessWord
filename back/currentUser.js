@@ -7,13 +7,15 @@ import User from "./User.js";
 class CurrentUser{
     constructor(){
         this.headTitle = "GuessWord";
-        this.cssList = ["./front/header.css"];
-        this.scriptsList = ['./scripts/header.js'];
+        this.cssList = ["./front/header.css", "./front/footer.css"];
+        this.scriptsList = ['./scripts/header.js', './scripts/footer.js'];
+
         this.currentLink = undefined;          
         this.userProfile = {
             id : undefined,
             logined : false,
             name : undefined,
+
             coins : undefined,
             mail: undefined,
             status: undefined,
@@ -25,6 +27,7 @@ class CurrentUser{
             headTitle : this.headTitle,
             cssList : this.cssList,
             currentLink : this.currentLink,
+
             scriptsList : this.scriptsList,
             userProfile : this.userProfile,
         };
@@ -35,15 +38,15 @@ class CurrentUser{
     }
 
     updateStatus(obj){
-        this.cssList = ["./front/header.css"];
-        this.scriptsList = ["./scripts/header.js"];
+        this.cssList = ["./front/header.css", './front/footer.css'];
+        this.scriptsList = ["./scripts/header.js", "./scripts/footer.js"];
 
         for (let i of Object.keys(obj)){
             if (i == "cssList") {
-                this[i] = ["./front/header.css"].concat(obj[i]);
+                this[i] = this[i].concat(obj[i]);
                 continue;
             } else if (i == "scriptsList"){
-                this[i] = ["./scripts/header.js"].concat(obj[i]);
+                this[i] = this[i].concat(obj[i]);
                 continue;
             };
 
@@ -72,7 +75,7 @@ class CurrentUser{
         });
         return res.length != 0;
     };
-
+    
     async findUser(criterion, password){
         try{
             let schemaResponse = undefined;
@@ -99,7 +102,7 @@ class CurrentUser{
                     };
 
                 } else {
-                    throw new Error('Не правильный пароль');
+                    throw new Error('Неправильный пароль');
                 };
 
             } else {
@@ -107,6 +110,7 @@ class CurrentUser{
             };
 
         } catch(e){
+            console.log('currentUser: ', e.message);
             return new Error(e.message);
         };
     };

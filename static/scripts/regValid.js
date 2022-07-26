@@ -20,8 +20,7 @@ function checkValid(value){
 
 function changeButton(obj){    
     const submitButton = document.querySelector('#submit');
-    console.log(obj);
-
+    
     if (checkValid(obj)){
         if (submitButton.classList.contains('submit__incorrect')){
             submitButton.classList.remove('submit__incorrect');

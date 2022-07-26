@@ -36,14 +36,14 @@
 }
 
 label{
-    font-size: 30px;
+    font-size: 35px;
 }
 
 /* input */
 input{
     border-radius: 20px;
     padding: 0.5% 2%;
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
     outline: none;
     transition: border 0.3s linear;
 }
@@ -53,7 +53,7 @@ input:focus{
 }
 
 .input__incorrect{
-    border: 3px solid rgb(179, 18, 18);
+    border: 4px solid rgb(179, 18, 18);
 }
 
 .input__incorrect:focus{

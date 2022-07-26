@@ -163,7 +163,8 @@ class Controller{
 
             let updateBody = {
                 name: req.body.name,
-                mail:req.body.mail,
+                mail: req.body.mail,
+                privilege: mainObject.userInfo.status, 
             };
 
             if (req.body.newPassword){
@@ -171,7 +172,8 @@ class Controller{
             };
 
             const userDB = await User.findByIdAndUpdate(mainObject.userInfo.id,updateBody, {new:true});
-            
+            console.log(userDB);
+
             if (!userDB){
                 throw new Error('Пользователь не найден');
             }
@@ -190,13 +192,13 @@ class Controller{
 
             // валидация
             const errors = validationResult(req);
-            if (!errors.isEmpty()) throw new Error('Не правильный формат ввода');
+            if (!errors.isEmpty()) throw new Error('Неправильный формат ввода');
 
             const userData = await mainObject.findUser(req.body.login, req.body.pass);
             if (Object.keys(userData).length == 5){
                 mainObject.setUser(userData);
             } else {
-                throw new Error('Не правильные данные');
+                throw new Error('Неправильные данные');
             }
 
             res.json('All correct!');
@@ -207,14 +209,11 @@ class Controller{
 
     async postUser(req,res){
         try{
-
             if (Object.keys(req.body).length == 0) throw new Error('Пустое тело запроса.');
 
             const fromAdmin = req.body.fromAdmin ?? false;
             let newUser = req.body;
 
-            console.log(req.body);
-            
             delete newUser.fromAdmin;
             
             // валидация
@@ -222,7 +221,7 @@ class Controller{
             if (!errors.isEmpty()){
                 throw new Error("Ошибка валидации");
             };
-
+            
             if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
@@ -232,7 +231,7 @@ class Controller{
             
             // создание экземпляра по схеме
             const createdUser = new User(newUser);
-
+            
             createdUser.save(err=>{
                 if (err){
                     console.log(err.message);
@@ -241,7 +240,10 @@ class Controller{
             });
             
             if (!fromAdmin){   
+                const newId = JSON.stringify(createdUser['_id']);
+
                 mainObject.updateUser({
+                    id : newId.slice(1, newId.length-1),
                     logined : true,
                     name : req.body.name,
                     coins : 0,
@@ -253,6 +255,7 @@ class Controller{
             res.json('Done');       
 
         } catch(e){
+            console.log(e.message);
             res.status(500).json(e);
         };
     };

@@ -11,19 +11,18 @@ if (toProfileButton){
 
 if (exitButton){
     exitButton.addEventListener('click', ()=>{
-        if (!confirm('Вы уверены, что хотите выйти из аккаунта?')){
-            return;
-        }
-
-        fetch('/api/exit', {
-            method:'get'
-        }).then(value=>{
-            if (!value.ok) {
-                alert('Ошибка соединения');
-            } else {
-                window.location.href = "http://localhost:5000/api/";
-            }
-        });
+        showQuestion('Вы уверены, что хотите выйти из аккаунта?', ()=>{
+            fetch('/api/exit', {
+                method:'get'
+            }).then(value=>{
+                if (!value.ok) {
+                    alert('Ошибка соединения');
+                } else {
+                    window.location.href = "http://localhost:5000/api/";
+                    // window.location.href = window.location.href.split('/').slice(0, window.location.href.split('/').length-1).join('/');
+                }
+            });
+        })
     });
 };
 

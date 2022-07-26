@@ -1,0 +1,108 @@
+footer{
+    margin-top: 600px;
+    height: 300px;
+    background-color: #fff;
+
+    width: 100%;
+}
+
+.footer__link::after{
+    display: none;
+}
+
+.footer__body{
+    justify-content: space-between;
+    display: flex;
+    fill: #000;
+}
+
+.footer__logo{
+    max-width: 70px;
+    width: 100%;
+}
+
+.svg__icon{
+    margin: auto 0;
+    max-width: 100px;
+    fill: inherit;
+
+    transition: all .5s ease 0s;
+    position: absolute;
+}
+
+
+.telegram__link{
+    left: 6%;
+}
+.telegram__link:hover{
+    fill: rgb(37, 163, 205);
+}
+
+.github__link{
+    left: 27%;
+}
+
+.github__link:hover{
+    fill: rgb(126, 32, 82);
+}
+
+.steam__link{
+    left: 48%
+}
+
+.steam__link:hover{
+    fill: rgb(34, 37, 104);
+}
+
+
+.footer__links__content{
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+}
+
+.footer__links{
+    width: 100%;
+    max-width: 500px;
+
+}
+
+.footer__title, .signature__title{
+    font-size: 1.7rem;
+    color: #000;
+    font-weight: 700;
+}
+
+.footer__title::after, .signature__title::after{
+    content: '';
+    display: flex;
+    background-color: #34AF56;
+
+    width: 100%;
+    max-width: 95px;
+    border-radius: 20px;
+
+    border: 4px solid #34AF56;
+    margin-bottom: 5%;
+}
+
+.footer__title::after{
+    max-width: 320px;
+}
+
+.signature__text{
+    font-size: 1.5rem;
+    color: #000;
+    font-style: italic;
+
+    font-weight: 600;
+}
+
+.footer__line{
+    width: 99.3%;
+    border: 4px solid #34AF56;
+
+    margin-bottom: 2%;
+}

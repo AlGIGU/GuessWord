@@ -1,18 +1,14 @@
 const userStatus = document.querySelector('#userStatus');
 const hrLine = document.querySelector('.horizontalLine');
 
-
-
 if (userStatus.textContent == 'Admin'){
     userStatus.textContent = "Барин"
     userStatus.classList.add('adminStyle');
-    // userStatus.style.color = '#e74c4c';
-    // userStatus.style.textShadow = '0px 0px 10px #e74c4c'
+
 } else {
     userStatus.textContent = "Смерд"
     userStatus.classList.add('userStyle');
     userStatus.style.color = '#4fd976';
-    // userStatus.style.textShadow = '0px 0px 10px #4fd976'
 };
 
 const changeButton = document.querySelector('.changeButton');
@@ -101,21 +97,22 @@ changeButton.addEventListener('click', ()=>{
         }).then(value=>{
             if (value.ok){
                 fetch('/api/profile', {
-                    method:"put",headers: {
+                    method:"put",
+                    headers: {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify(userData)
                 }).then(value=>{
-                    console.log(value.status);
                     if (value.ok){
-                        alert('Данные успешно обновлены!')
-                        window.location.href = window.location.href;
+                        showCorrect('Данные успешно обновлены', ()=>{
+                            window.location.href = window.location.href;
+                        });
                     } else {
-                        alert('Ошибка при обновлении данных.')
+                        showWrong('Ошибка при обновлении данных');
                     };
                 })
             } else {
-                alert('Неправильный пароль')   
+                showWrong('Неправильный пароль');
             };
         });
 
@@ -125,25 +122,24 @@ changeButton.addEventListener('click', ()=>{
 
 // удаление пользователя
 deleteButton.addEventListener('click', async e=>{
-    if (!confirm('Вы точно хотите удалить аккаунт?')){
-        return;
-    };
-
-    try{
-        fetch('/api/profile', {
+    showQuestion('Вы точно хотите удалить свой аккаунт?', ()=>{
+        try{
+            fetch('/api/profile', {
             method:"delete",
             headers:{
                 'Content-Type': 'application/json;charset=utf-8'
             },
         }).then(res=>{
             if (res.ok){
-                alert('Аккаунт успешно удален.');
-                window.location.href = window.location.href.slice(0, window.location.href.length-7);
+                showCorrect('Аккаунт спешно удален', ()=>{
+                    window.location.href = window.location.href.slice(0, window.location.href.length-7);
+                })
             } else {
                 throw new Error('Ошибка на сервере.');
             };
         });
-    }catch(e){
-        alert(e.message);
-    };
+        }catch(e){
+            showWrong(e.message);
+        };
+    });
 });

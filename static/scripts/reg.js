@@ -10,7 +10,6 @@ function getFormObj(form){
         coins: 0
     };
 
-    // res.password = bcrypt.hashSync(pass.value, 7);
     return res;
 };
 
@@ -19,6 +18,7 @@ function getFormObj(form){
 sendForm.addEventListener('submit', (e)=>{
     e.preventDefault();
 
+    sendForm.submit.setAttribute('disabled', true);
     let postContent = getFormObj(sendForm);
 
     fetch('/api/reg', {
@@ -32,10 +32,12 @@ sendForm.addEventListener('submit', (e)=>{
         if (res.ok){
             
             // в случае успеха возвращаемся на главную страницу
-            alert('Успешная регистрация');
-            window.location.href = window.location.href.slice(0, window.location.href.length - 3); 
+            showCorrect('Успешная регистрация', ()=>{
+                window.location.href = window.location.href.slice(0, window.location.href.length - 3); 
+            })
         } else {
-            alert(res.statusText);
+            sendForm.submit.removeAttribute('disabled');
+            showWrong('Неправильно введенные данные');
         }
     })
 });
