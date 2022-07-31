@@ -343,7 +343,7 @@ popupSendButton.addEventListener("click", e=>{
         mail : userForm.mail.value,
         password : userForm.password.value,
         coins : userForm.coins.value || 0,        
-        privilege: userForm.status.value ?? "User",
+        privilege: userForm.status.value || "User",
         fromAdmin : true
     };
     
@@ -358,7 +358,7 @@ popupSendButton.addEventListener("click", e=>{
     }).then(response=>{
         if (response.ok){
             showCorrect('Пользователь успешно зарегистрирован', ()=>{
-                window.location.href = window.location.href; 
+                window.location.href = window.location.href;
             })
         } else {
             showWrong('Ошибка на сервере');

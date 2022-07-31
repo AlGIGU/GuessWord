@@ -1,5 +1,5 @@
 .rules__title{
-    font-size: 60px;
+    font-size: 3rem;
     color: #34AF56;
     margin: 0;
 
@@ -44,13 +44,14 @@ ol{
 
 li, .getLucky{
     list-style-type: none;
-    font-size: 40px;
+    font-size: 2rem;
     opacity: 0;
 }
 
 li{
     margin-bottom: 2%;
     position: relative;
+    max-width: 1400px;
 }
 
 li::before{
@@ -66,7 +67,7 @@ li::before{
     animation: 1.5s infinite alternate merc;
     transition: all 2s cubic-bezier(.55,-0.45,.4,1.51) 0.2s;
 
-    font-size: 50px;
+    font-size: 2.5rem;
 }
 
 .stylized__hr{
@@ -93,7 +94,6 @@ li::before{
 }
 
 .getLucky{
-    padding-left: 5%;
     width: 100%;
     opacity: 0;
 

@@ -9,7 +9,7 @@ section{
 li{
     line-height: 1.5;
     list-style-type: none;
-    border: 5px solid #34AF56;
+    border: 0.3rem solid #34AF56;
     
     border-radius: 20px;
     width: 100%;
@@ -36,7 +36,7 @@ li{
 }
 
 li::before{
-    font-size: 40px;
+    font-size: 2rem;
     content: '♕';
     position: absolute;
 
@@ -65,11 +65,11 @@ li::before{
 /* text */
 ul h2{
     color:#34AF56;
-    font-size: 35px;
+    font-size: 1.7rem;
 }
 
 ul p{
-    font-size: 30px;
+    font-size: 1.5rem;
 }
 
 
@@ -79,7 +79,7 @@ input,.popup__form select,.create__new__user, select.userStatus,
 .popup__send__button, .popup__close__button{
     border-radius: 20px;
     padding: 2px 10px;
-    border: 4px solid #34AF56;
+    border: 0.2rem solid #34AF56;
 
     outline: none;
     width: 100%;
@@ -181,7 +181,7 @@ input:focus, select.status:focus{
 }
 
 .popup__body{
-    margin-top: 100px;
+    margin-top: 2%;
     display: flex;
     align-content: center;
 
@@ -190,7 +190,7 @@ input:focus, select.status:focus{
 }
 
 .popup__content{
-    border: 5px solid #34AF56;
+    border: 0.3rem solid #34AF56;
     border-radius: 20px;
     background-color: #202020;
 
@@ -208,10 +208,18 @@ input:focus, select.status:focus{
 }
 
 .popup__title{
-    font-size: 40px;
+    font-size: 2rem;
     margin: 0px 0px 1em 0px;
-    text-decoration: underline;
     text-align: center;
+}
+
+.popup__title::after{
+    display: block;
+    content: '';
+    border: 0.2rem solid #34AF56;
+
+    width: 100%;
+    border-radius: 20px;
 }
 
 .popup__form label{
@@ -234,18 +242,17 @@ input:focus, select.status:focus{
 
 
 .popup__form form p{
-    font-size: 35px;
+    font-size: 1.7rem;
 }
 
 .popupLine{
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
 }
 
 
 ul{
     width: 100%;
-    /* max-width: 560px; */
 }
 
 .mainContainer{
@@ -254,7 +261,7 @@ ul{
 
 
 .users__title{
-    font-size: 60px;
+    font-size: 3rem;
     color: #34AF56;
     font-weight: 700;
 }
@@ -262,7 +269,7 @@ ul{
 
 .users__title::after{
     content: '';
-    border: 4px solid #34AF56;
+    border: 0.2rem solid #34AF56;
     border-radius: 20px;    
 
     display: block;

@@ -1,6 +1,6 @@
 /* text */
 .regTitle{
-    font-size: 60px;
+    font-size: 3rem;
     color: #34AF56;
     margin-bottom: 2%;
 
@@ -36,7 +36,7 @@
 }
 
 label{
-    font-size: 35px;
+    font-size: 2rem;
 }
 
 /* input */
@@ -44,8 +44,13 @@ input{
     border-radius: 20px;
     padding: 0.5% 2%;
     border: 4px solid #34AF56;
+
     outline: none;
     transition: border 0.3s linear;
+    font-size: 1.5rem;
+
+    width: 100%;
+    max-width: 430px;
 }
 
 input:focus{
@@ -92,7 +97,7 @@ input[type="file"]{
 
 
 section{
-    margin-bottom: 2%;
+    margin-bottom: 5%;
 }
 
 #mainForm{
@@ -139,5 +144,4 @@ section{
         opacity: 0;
         visibility: hidden;
     }
-    
 }

@@ -1,7 +1,10 @@
-<header>
-    <div class="container">
-        <nav style="display:flex" class="navbar">
-            <div class="control__part">
+<div class="header__container">
+    <header>
+        <div class="header__body">
+            <div class="header__content">
+
+                <nav style="display:flex" class="navbar">
+                    <div class="control__part">
                 <svg id="mainLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.66 129.66"><defs><style>.cls-1{fill:#30a150;stroke:#30a150;stroke-width:12.85px;}.cls-1,.cls-2,.cls-3{stroke-miterlimit:10;}.cls-2{fill:none;}.cls-2,.cls-3{stroke:#000;stroke-width:11px;}.cls-3{fill:#fff;}</style></defs><g id="Слой_2" data-name="Слой 2"><circle class="cls-1" cx="64.83" cy="64.83" r="58.4"/></g><g id="Слой_1" data-name="Слой 1"><circle class="cls-2" cx="64.83" cy="64.83" r="50"/><path class="cls-3" d="M272.94,219" transform="translate(-185.17 -185.17)"/><path class="cls-2" d="M267.08,219.47H240.17c-2.26,0-4.11,2.49-4.11,5.54V275.2c0,3.05,1.85,5.54,4.11,5.54h17.35c2.26,0,4.11-2.49,4.11-5.54V240.38" transform="translate(-185.17 -185.17)"/></g></svg>
                 <div class="control__row">
                     <div class="headerBox">
@@ -10,25 +13,27 @@
                         <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/api/rules">Правила</a>
                         <%if (userProfile.logined & userProfile.status == 'Admin'){%>
                             <a class="controlLink <%if (currentLink=="/admin") {%>action<%}%>" href="/api/admin">Админка</a>
-                        <%}%>
+                            <%}%>
                     </div>
                 </div>
+                </div>
+            
+                <!-- В случае, если пользователь залогинен, то отобразить его аватарку и имя -->
+                <div class="user__part">
+                    <% if (userProfile.logined){%>
+                        <section class="toProfile">
+                            <img src="<%= userProfile.status == 'Admin'? "./icons/admin.png" : "./icons/user.png"%>" class="userIcon" alt="avatar.jpg">
+                            <p id="profileName"><%=userProfile.name%></p>
+                        </section>
+                        <a class="exitButton" href="#">Выйти</a>
+                        
+                    <%} else {%>
+                        <a class="actionLink" href="/api/login">Вход</a>                
+                        <a class="actionLink" href="/api/reg">Регистрация</a>
+                    <%}%>
+                </div>
             </div>
-                
-            <!-- В случае, если пользователь залогинен, то отобразить его аватарку и имя -->
-            <div class="user__part">
-                <% if (userProfile.logined){%>
-                    <section class="toProfile">
-                        <img src="<%= userProfile.status == 'Admin'? "./icons/admin.png" : "./icons/user.png"%>" class="userIcon" alt="avatar.jpg">
-                        <p id="profileName"><%=userProfile.name%></p>
-                    </section>
-                    <a class="exitButton" href="#">Выйти</a>
-                    
-                <%} else {%>
-                    <a class="actionLink" href="/api/login">Вход</a>                
-                    <a class="actionLink" href="/api/reg">Регистрация</a>
-                <%}%>
-            </div>
-        </nav>
-    </div>
-</header>
+            </nav>
+        </div>
+    </header>
+</div>

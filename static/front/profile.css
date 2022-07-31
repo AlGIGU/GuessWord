@@ -59,24 +59,29 @@
 /* changeForm */
 input, .changeButton, .backButton, .deleteButton{
     border-radius: 20px;
-    padding: 2px 10px;
-    border: 3px solid #34AF56;
+    padding: 0 1%;
+    border: 4px solid #34AF56;
+
     outline: none;
     transition: border 0.3s linear;
+    font-size: 1.4rem;
 }
 
 input:focus{
     box-shadow: 0px 0px 10px #34AF56;
-    border: 3px solid #34AF56;
+    border: 4px solid #34AF56;
 }
 
 [name="submitButton"], .backButton, .changeButton, .deleteButton{
-    padding: 5px 10px;
+    padding: 1.5% 5%;
     cursor: pointer;
     transition: all 0.3s linear;
     background-color: #34AF56;
 }
 
+[name="submitButton"], .backButton{
+    padding: 1% 2%;
+}
 
 [name="submitButton"]:hover, [name="submitButton"]:focus,
 .changeButton:hover, .changeButton:focus, .backButton:hover,
@@ -97,9 +102,11 @@ input:focus{
 
 .deleteButton:hover, .deleteButton:focus{
     box-shadow: 0px 0px 10px #c72323;
+    text-shadow: 0px 0px 10px #c72323;
 }
+
 .horizontalLine{
-    margin-bottom: 2%;
+    margin-bottom: 3%;
     border: 4px solid #34AF56;
     border-radius: 5px;
 
