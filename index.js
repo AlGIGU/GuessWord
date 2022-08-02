@@ -16,19 +16,19 @@ app.set('view engine', 'ejs');
 //меняем директорию с ejs-файлами
 app.set('views', "./pages");
 
-app.use('/api',router);
+app.use('/', router);
 
 // работа с файлами
 app.use(fileUpload({}));
+
+//подключение статики. без нее не работает CSS - статическая страница.
+app.use('/', express.static('./static'));
 
 // для чтения http запросов
 // не работает?
 app.use(express.urlencoded({
     extended : true
 }))
-
-//подключение статики. без нее не работает CSS - статическая страница.
-app.use('/api', express.static('./static'));
 
 
 // 404 not found

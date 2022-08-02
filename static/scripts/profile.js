@@ -87,7 +87,7 @@ changeButton.addEventListener('click', ()=>{
             newPassword: mainForm.userNewPass.value,
         };
 
-        fetch('/api/checkPass',{
+        fetch('/checkPass',{
             method:"post",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -96,7 +96,7 @@ changeButton.addEventListener('click', ()=>{
 
         }).then(value=>{
             if (value.ok){
-                fetch('/api/profile', {
+                fetch('/profile', {
                     method:"put",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -124,7 +124,7 @@ changeButton.addEventListener('click', ()=>{
 deleteButton.addEventListener('click', async e=>{
     showQuestion('Вы точно хотите удалить свой аккаунт?', ()=>{
         try{
-            fetch('/api/profile', {
+            fetch('/profile', {
             method:"delete",
             headers:{
                 'Content-Type': 'application/json;charset=utf-8'

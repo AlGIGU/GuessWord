@@ -5,29 +5,41 @@
 
         font-weight: 500;
         font-size: 1.25rem;
+        box-sizing: border-box;
     }
 
-    body, html{
-        width: 100%;
-        height: 100%;
+    body,html{
         background-color: #171717;
-
         color: white;
-    }
-    
-    /* container */
-    .container, .footer__container, .header__container{
-        padding: 0 5%;
         width: 100%;
+    }
 
-        min-height: 100%;
-        max-width: 1500px;
+    html{
+        position: relative;
+        top: 0;
+        left: 0;
+
+        bottom: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    /* container */
+    .container, 
+    .footer__container, 
+    .header__container{
+        padding: 0 5%;
         margin: 0 auto;
+    }
+
+
+    .container{
+        max-width: 80vw;
     }
 
 /* header */
     header{
-        background-color: #fff;
+        background-color: #171717;
         width: 100%;
         height: 100%;
 
@@ -36,7 +48,7 @@
 
         left: 0;
         top: 0;
-}
+    }
 
 /* header box */
     .headerBox{
@@ -75,16 +87,15 @@
 
         height: 100%;
         max-height: 70px;
-
         display: flex;
+
         justify-content: space-between;
     }
 
 /* controlLink */
     .controlLink{
-        color: black;
+        color: #fff;
         padding: 0.5%;
-
         transition: all 0.3s linear;
     };
 
@@ -93,7 +104,6 @@
     .controlLink:hover, .controlLink:focus{
         border-bottom: 5px solid #34AF56;
         text-shadow: 0px 0px 10px white;
-        color: black;
     } 
 
 /* actionLink */
@@ -102,13 +112,8 @@
         text-decoration: none;
         border-radius: 0px;
 
-        color: black;
+        color: #fff;
     }
-
-    .actionLink:hover{
-        color: black;
-    }
-
 
 /* profile */
     .toProfile{
@@ -119,6 +124,9 @@
         margin: auto 0;
         margin-right: 15%;
         padding: 0;
+
+        color: #fff;
+        fill: #fff;
     }
 
 
@@ -130,19 +138,21 @@
     .userIcon{
         max-width: 50px;
         max-height: 50px;
+        fill: inherit;
     }
 
     #profileName{
         display: flex;
-        color: black;
+        color: inherit;
     }
 
     .exitButton{
         text-decoration: none;
-        color: black;
+        color: #fff;
         transition: all 0.2s linear;
 
         margin: auto 0;
+        cursor: pointer;
     }
 
     .exitButton:focus, .exitButton:hover{
@@ -182,6 +192,10 @@ a::after, .toProfile::after{
     transition: width 0.5s linear 0s, opacity 0.5s linear 0.1s;    
 }
 
+.toProfile:hover{
+    color: #34AF56;
+    fill: #34AF56;
+}
 
 a:hover::after, .toProfile:hover::after{
     transition: width 0.5s linear 0s, opacity 0.5s linear 0s;    
@@ -204,7 +218,6 @@ a:hover::after, .toProfile:hover::after{
 
 .control__part{
     font-style: 25px;
-    max-width: 700px;
     max-height: 200px;
 
     display: flex;
@@ -213,18 +226,16 @@ a:hover::after, .toProfile:hover::after{
 
 .header__container{
     height: 80px;
-    min-height: 0;
     position: relative;
 
-    background-color: #fff;
+    background-color: #292929;
     margin: 0;
     margin-bottom: 50px;
 
     padding: 0;
     width: 100%;
-    max-width: 100vw;
 
-    min-width: 1100px;
+    min-width: 1200px;
 }
 
 .header__body{
@@ -238,13 +249,35 @@ a:hover::after, .toProfile:hover::after{
 
 .header__content{
     width: 100%;
-    max-width: 2000px;
     min-width: none;
 }
 
-@media (max-width:1200px) {
-    .container{
-        max-width: 970px;
-        background-color: red;
+@media (max-width:1200px){
+    .container, .footer__container{
+        max-width: 890px;
+    }
+
+    /* .header__body, header, .header__container{
+        max-width: 1000px;
+    } */
+    .header__container{
+        min-width: none;
     }
 }
+/* 
+@media (max-width:992px) {
+    .container, .footer__container, .header__container{
+        max-width: none;
+        background-color: green;
+    }
+    nav{
+        justify-content: none;
+    }
+}
+
+@media (max-width:770px) {
+    .container{
+        max-width: none;
+        background-color: red;
+    }
+} */

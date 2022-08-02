@@ -1,4 +1,4 @@
-fetch('/api/getAllUsers', {
+fetch('/getAllUsers', {
     method:"GET",
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -167,7 +167,7 @@ fetch('/api/getAllUsers', {
                 newData.id = point.parentElement.parentElement.querySelector('.userId').textContent;
 
                 // отправка запроса в БД
-                fetch('/api/profile', {
+                fetch('/profile', {
                     method:"put",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -209,7 +209,7 @@ fetch('/api/getAllUsers', {
                 const userId = {
                     id: e.target.parentElement.parentElement.querySelector('.userId').textContent
                 };
-                fetch('/api/profile', {
+                fetch('/profile', {
                     method:'delete',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -348,7 +348,7 @@ popupSendButton.addEventListener("click", e=>{
     };
     
 
-    fetch('/api/reg', {
+    fetch('/reg', {
         method:"post",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

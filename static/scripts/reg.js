@@ -21,7 +21,7 @@ sendForm.addEventListener('submit', (e)=>{
     sendForm.submit.setAttribute('disabled', true);
     let postContent = getFormObj(sendForm);
 
-    fetch('/api/reg', {
+    fetch('/reg', {
         method:"post",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

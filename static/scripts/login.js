@@ -21,7 +21,7 @@ sendForm.addEventListener('submit', async (e)=>{
     
     let postContent = getFormObj(sendForm);
 
-    let res = await fetch('/api/login', {
+    let res = await fetch('/login', {
         method:"post",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

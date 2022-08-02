@@ -5,20 +5,23 @@ const headerBox = document.querySelector('.headerBox');
 
 if (toProfileButton){
     toProfileButton.addEventListener('click', ()=>{
-        window.location.href = "http://localhost:5000/api/profile";
+        let meha = window.location.href.split('/');
+        console.log(meha);
+
+        window.location.href = "http://localhost:5000/profile";
     })
 }
 
 if (exitButton){
     exitButton.addEventListener('click', ()=>{
         showQuestion('Вы уверены, что хотите выйти из аккаунта?', ()=>{
-            fetch('/api/exit', {
+            fetch('/exit', {
                 method:'get'
             }).then(value=>{
                 if (!value.ok) {
                     alert('Ошибка соединения');
                 } else {
-                    window.location.href = "http://localhost:5000/api/";
+                    window.location.href = "http://localhost:5000/";
                     // window.location.href = window.location.href.split('/').slice(0, window.location.href.split('/').length-1).join('/');
                 }
             });
