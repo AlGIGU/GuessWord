@@ -4,15 +4,17 @@
 <%- include('./partials/head')%> 
 
 <body>
-    <%-include('./partials/header')%>
-    <%if (!userProfile.logined){%>
+    <div class="wrapper">
+
+        <%-include('./partials/header')%>
+        <%if (!userProfile.logined){%>
         <div class="container">
             <h1 class="pageData">Профиль</h1>
             <h1 class="warningMessage">Войдите или зарегистрируйтесь, чтобы увидеть свой профиль.</h1>
         </div>
-    <%} else {%>
-        <div class="container">
-            <h1 class="pageData">Профиль</h1>
+        <%} else {%>
+            <div class="container">
+                <h1 class="pageData">Профиль</h1>
             <template class="firstTemplate">
                 <form class="newForm" action="#">
                     <section class="dataSection">
@@ -29,12 +31,12 @@
                         <p class="titleData">Пароль: </p>
                         <input type="password" name="userPass">
                     </section>
-
+                    
                     <section class="dataSection">
                         <p class="titleData">Новый пароль(при желании): </p>
                         <input type="password" name="userNewPass">
                     </section>
-
+                    
                     <hr class="horizontalLine">
                     
                     <button class="backButton">Назад</button>
@@ -68,5 +70,6 @@
         </div>
         <%}%>
         <%-include('./partials/scripts')%>
-    </body>
-    </html>
+    </div>
+</body>
+</html>

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <%-include('./partials/head')%>
-<body>
-    <%-include('./partials/header')%>
-    <div class="container">
-        <h1 class="title">Тут ничего нет! Возвращайся на <label>главную!</label></h1>
-    </div>
+<!-- <body>
+    <div class="wrapper">
+        <div class="container">
 
-    <%-include('./partials/scripts')%>
+            <h1 class="title">Тут ничего нет! Возвращайся на <label>главную!</label></h1>
+        </div>
+    </div>
+</body> -->
+<body>
+    <div class="wrapper">
+        <!-- Начальная страница Guess Word -->
+         <%- include('./partials/header')%>
+    
+        <div class="container">
+            <h1 class="title">Тут ничего нет! Иди на главную!</h1>
+        </div>
+        <%-include('./partials/scripts')%>
+    </div>
 </body>
 </html>

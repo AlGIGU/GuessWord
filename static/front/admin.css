@@ -304,3 +304,9 @@ ul{
     color: rgb(231, 76, 76); 
     text-shadow: rgb(231, 76, 76) 0px 0px 10px;
 }
+
+.copy__id__svg g path{
+    fill: #fff;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}

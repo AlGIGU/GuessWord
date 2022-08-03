@@ -20,8 +20,9 @@ fetch('/getAllUsers', {
     let ul = document.createElement('ul');
     document.querySelector('.mainContainer').append(ul);
     let userElement = document.querySelector('template').innerHTML;
-    ul = document.querySelector('ul');
 
+    ul = document.querySelector('ul');
+    
     for (let user of value){
         let li = document.createElement('li');
         li.innerHTML = userElement;
@@ -43,6 +44,31 @@ fetch('/getAllUsers', {
             i.classList.add('user__status__style');
         };
     };
+
+    const ulBody = document.body.querySelector('.mainContainer').querySelector('ul');
+    ulBody.addEventListener('click', e=>{
+        if (e.target.classList.contains('copy__id__svg')){
+            console.log(e.target.previousElementSibling.textContent);
+            navigator.clipboard.writeText(e.target.previousElementSibling.textContent)
+            .then(() => {
+                const pathTarget = e.target.querySelectorAll('path');
+                for (let i of pathTarget){
+                    console.log(i);
+                    i.style.fill = '#34AF56';
+                }
+                setTimeout(() => {
+                    console.log(2);
+                    for (let i of pathTarget){
+                        i.style.fill = '#fff';
+                    }   
+                }, 2000);
+
+            })
+            .catch(err => {
+                console.log('Something went wrong', err);
+            });
+        }
+    })
 }).then(()=>{
         document.querySelector('ul').addEventListener('click', e=>{
         if (e.target.classList.contains('changeButton')){
@@ -235,7 +261,7 @@ fetch('/getAllUsers', {
     });
     
 }).then(value=>{
-    
+
     // действия после загрузки сайта
     // стилизация
     // li
@@ -253,8 +279,10 @@ fetch('/getAllUsers', {
             animationTime = 0.2;
         } else {
             animationTime += 0.05;
-        }
+        };
     };
+
+
 });
 
 // добавление нового пользователя(popup)
@@ -365,3 +393,10 @@ popupSendButton.addEventListener("click", e=>{
         };
     });
 });
+
+
+// window.onresize = start;
+// function start(){
+//     console.log(document.documentElement.clientWidth);
+//     console.log(document.documentElement.clientHeight);
+// }
