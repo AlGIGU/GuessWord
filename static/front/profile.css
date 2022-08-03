@@ -2,7 +2,8 @@
     display: flex;
     padding-left: 2%;
     justify-content: space-between;
-    margin-bottom: 1%;
+
+    margin-bottom: 30px;
 }
 
 .pageData{
@@ -65,6 +66,10 @@ input, .changeButton, .backButton, .deleteButton{
     outline: none;
     transition: border 0.3s linear;
     font-size: 1.4rem;
+}
+
+.dataSection input{
+    max-height: 50px;
 }
 
 input:focus{
@@ -169,5 +174,29 @@ input:focus{
 
     to{        
         text-shadow: 0px 0px 10px #4fd976;
+    }
+}
+
+
+@media (max-width:600px) {
+    .dataSection{
+        display: block;
+    }
+    .userData{
+        max-width: 400px;
+    }
+}
+
+@media (max-width:450px) {
+    .dataSection p, .dataSection input {
+        font-size: 7vw;
+    }
+
+    .dataSection input{
+        max-width: 80vw;
+    }
+
+    .changeButton,.backButton{
+        margin-bottom: 20px;
     }
 }

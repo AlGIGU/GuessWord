@@ -5,19 +5,19 @@
             <svg class="burger__svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" viewBox="0 0 12 12" enable-background="new 0 0 12 12" id="Слой_1" version="1.1" xml:space="preserve"><g><rect fill="#1D1D1B" height="1" width="11" x="0.5" y="5.5"/><rect fill="#1D1D1B" height="1" width="11" x="0.5" y="2.5"/><rect fill="#1D1D1B" height="1" width="11" x="0.5" y="8.5"/></g></svg>
             <div class="header__content">
 
-                <nav style="display:flex" class="navbar">
+                <nav class="navbar">
                     <div class="control__part">
                         
-                <div class="control__row">
-                    <div class="headerBox">
-                        <!-- ссылки на статику ведутся относительно папки со статикой -->
-                        <a class="controlLink <%if (currentLink=="/") {%>action<%}%>" href="/">Главная</a>                
-                        <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/rules">Правила</a>
-                        <%if (userProfile.logined & userProfile.status == 'Admin'){%>
-                            <a class="controlLink <%if (currentLink=="/admin") {%>action<%}%>" href="/admin">Админка</a>
-                            <%}%>
+                    <div class="control__row">
+                        <div class="headerBox">
+                            <!-- ссылки на статику ведутся относительно папки со статикой -->
+                            <a class="controlLink <%if (currentLink=="/") {%>action<%}%>" href="/">Главная</a>                
+                            <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/rules">Правила</a>
+                            <%if (userProfile.logined & userProfile.status == 'Admin'){%>
+                                <a class="controlLink <%if (currentLink=="/admin") {%>action<%}%>" href="/admin">Админка</a>
+                                <%}%>
+                        </div>
                     </div>
-                </div>
                 </div>
                 
                 <!-- В случае, если пользователь залогинен, то отобразить его аватарку и имя -->
@@ -68,7 +68,7 @@
             <div class="burger__user__part">
                 <% if (userProfile.logined){%>
                     <a class="burger__action__link" href="/profile">Профиль</a>
-                    <a class="burger__action__link">Выйти</a>
+                    <a class="burger__action__link burger__exit__button">Выйти</a>
                 <%} else {%>
                     <a class="burger__action__link" href="/login">Вход</a>                
                     <a class="burger__action__link" href="/reg">Регистрация</a>

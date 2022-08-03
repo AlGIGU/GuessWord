@@ -152,14 +152,17 @@ footer{
     background-color: rgb(54, 33, 42);
     margin: 0 auto;
     width: 100%;
-    display: none;
 
-    max-width: 600px;
-    min-width: 400px;
+    display: none;
+    max-width: 40vw;
     padding: 1%;
+
+    font-size: 10vw;
+    min-width: 250px;
 
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    min-height: 70px;
 }
 
 .server__message__icon, .server__message__question__icon{
@@ -221,7 +224,9 @@ footer{
     color: #fff;
     font-weight: 600;
     margin: 0 auto;
+
     text-align: center;
+    font-size: 1.5vw;
 }
 
 .server__message__correct{
@@ -280,7 +285,7 @@ footer{
 
 .server__message__button{
     width: 100%;
-    height: 100%;
+    height: 60px;
     max-width: 200px;
 
     border-radius: 20px;
@@ -361,7 +366,28 @@ footer::before{
         margin-bottom: 100px;
     }
 
+    .signature__text{
+        font-size: 6vw;
+    }
+
+    .server__message__text, .question__text,
+    .server__message__button{
+        font-size: 25px;
+    }
 }
+
+@media (max-width:400px) {
+    .server__message__button{
+        height: 45px;
+        width: 40vw;
+    }
+
+    .server__message__text, .question__text,
+    .server__message__button{
+        font-size: 20px;
+    }
+};
+
 
 /* @media (max-width:500px) {
     *{

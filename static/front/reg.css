@@ -2,7 +2,7 @@
 .regTitle{
     font-size: 3rem;
     color: #34AF56;
-    margin-bottom: 2%;
+    margin-bottom: 35px;
 
     position: relative;
     max-width: 390px;
@@ -83,6 +83,14 @@ input[type="file"]{
     padding: 1.5% 2%;
     opacity: 0;
     visibility: hidden;
+
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+
+    max-height: 100px;
+    min-height: 40px;
+
 }
 
 #submit:hover{
@@ -97,7 +105,7 @@ input[type="file"]{
 
 
 section{
-    margin-bottom: 5%;
+    margin-bottom: 20px;
 }
 
 #mainForm{
@@ -143,5 +151,23 @@ section{
         transform: translate(-200%, 0%);
         opacity: 0;
         visibility: hidden;
+    }
+}
+
+@media (max-width:840px) {
+    .regTitle{
+        max-width: 38vw;
+        min-width: 315px;
+    }
+}
+
+
+@media (max-width:400px) {
+    .regTitle{
+        font-size: 12vw;
+        max-width: 10vw;
+        min-width: 240px;
+
+        max-width: 315px;
     }
 }

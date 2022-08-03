@@ -6,6 +6,7 @@ const burgerButton = document.querySelector('.burger__svg');
 const burger = document.querySelector('.burger');
 const closeBurger = document.querySelector('.close__svg');
 
+
 function toCorrectLink(url=window.location.href, way=''){
     url = url.split('').reverse().join('');
     url = url.slice(url.indexOf('/'));
@@ -34,7 +35,30 @@ if (exitButton){
             });
         })
     });
-};
+}
+
+if (document.querySelector('.burger__exit__button')){
+    const burgerExitButton = document.querySelector('.burger__exit__button');    
+
+
+    burgerExitButton.addEventListener('click', ()=>{
+        
+        burger.classList.add('closed__burger');
+        burger.classList.remove('showed__burger');
+        
+        showQuestion('Вы уверены, что хотите выйти из аккаунта?', ()=>{
+            fetch('/exit', {
+                method:'get'
+            }).then(value=>{
+                if (!value.ok) {
+                    alert('Ошибка соединения');
+                } else {
+                    window.location.href = toCorrectLink();
+                }
+            });
+        })
+    });
+}
 
 if (headerBox.querySelectorAll('*').length == 3){
     headerBox.classList.add('for__three__items__style');
@@ -44,7 +68,6 @@ if (headerBox.querySelectorAll('*').length == 3){
 
 burgerButton.addEventListener('click', e=>{
     const pageWidth = document.documentElement.scrollWidth; 
-    console.log(pageWidth);
     burger.classList.remove('closed__burger');
     burger.classList.add('showed__burger');
 })

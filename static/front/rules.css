@@ -3,7 +3,7 @@
     color: #34AF56;
     margin: 0;
 
-    margin-bottom: 5%;
+    margin-bottom: 50px;
     position: relative;
     max-width: 250px;
 
@@ -49,7 +49,7 @@ li, .getLucky{
 }
 
 li{
-    margin-bottom: 2%;
+    margin-bottom: 40px;
     position: relative;
     max-width: 1400px;
 }
@@ -127,4 +127,10 @@ li::before{
 .rules__body{
     width: 100%;
     max-width: 1500px;
+}
+
+@media (max-width:830px) {
+    .rules__title{
+        max-width: 200px;
+    }
 }

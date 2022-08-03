@@ -46,29 +46,6 @@ fetch('/getAllUsers', {
     };
 
     const ulBody = document.body.querySelector('.mainContainer').querySelector('ul');
-    ulBody.addEventListener('click', e=>{
-        if (e.target.classList.contains('copy__id__svg')){
-            console.log(e.target.previousElementSibling.textContent);
-            navigator.clipboard.writeText(e.target.previousElementSibling.textContent)
-            .then(() => {
-                const pathTarget = e.target.querySelectorAll('path');
-                for (let i of pathTarget){
-                    console.log(i);
-                    i.style.fill = '#34AF56';
-                }
-                setTimeout(() => {
-                    console.log(2);
-                    for (let i of pathTarget){
-                        i.style.fill = '#fff';
-                    }   
-                }, 2000);
-
-            })
-            .catch(err => {
-                console.log('Something went wrong', err);
-            });
-        }
-    })
 }).then(()=>{
         document.querySelector('ul').addEventListener('click', e=>{
         if (e.target.classList.contains('changeButton')){
@@ -89,7 +66,6 @@ fetch('/getAllUsers', {
             while (point != null & point.querySelector('p') != null){
 
                 let defaultValue = point.querySelector('p').textContent;
-                console.log(point.querySelector('p').className);
                 dataUser[point.querySelector('p').className] = defaultValue;
 
 
@@ -122,7 +98,7 @@ fetch('/getAllUsers', {
                     
                     if (point.firstElementChild.textContent=='Счёт:'){
                         input.setAttribute('type', 'number');
-                    }
+                    };
                     input.classList.add(INPUT_TITLES[point.firstElementChild.textContent]);
                     input.value = defaultValue;
                 };
@@ -148,6 +124,24 @@ fetch('/getAllUsers', {
             saveButton.textContent = 'Сохранить';
 
             saveButton.addEventListener('click', e=>{
+
+                let reg = new RegExp('^[a-zA-Z0-9._]+[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$');
+                if (saveButton.parentElement.parentElement.querySelector('.userName').value.length == 0 || saveButton.parentElement.parentElement.querySelector('.userName').value.length > 20 ){
+                    showWrong('Имя должно быть длинной от 1 до 20 символов');
+                    return;
+                }
+
+                if (saveButton.parentElement.parentElement.querySelector('.userCoins').value  > 1000000000){
+                    showWrong('Счет не может превышать 1.000.000.000, читер!');
+                    return;
+                }
+
+                if (!reg.test(saveButton.parentElement.parentElement.querySelector('.userMail').value)){
+                    showWrong('Неправильный формат почты');
+                    return;
+                }
+
+
 
                 let envir = e.target.parentElement.parentElement;
                 let inputValues = envir.querySelectorAll('input');
@@ -192,6 +186,12 @@ fetch('/getAllUsers', {
 
                 newData.id = point.parentElement.parentElement.querySelector('.userId').textContent;
 
+                if(newData['privilege'] == 'Барин'){
+                    newData['privilege'] = 'Admin';
+                } else {
+                    newData['privilege'] = 'User';
+                }
+
                 // отправка запроса в БД
                 fetch('/profile', {
                     method:"put",
@@ -199,6 +199,12 @@ fetch('/getAllUsers', {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body : JSON.stringify(newData)
+                }).then(res=>{
+                    if (res.ok){
+                        showCorrect('Пользователь изменен');
+                    } else {
+                        showWrong('Ошибка при изменении');
+                    };
                 });
             });
             
@@ -214,7 +220,13 @@ fetch('/getAllUsers', {
                     envir.append(document.createElement('p'));
 
                     let parag = envir.querySelector('p');
-                    parag.classList.add(i);
+                    if (i.split(' ').length > 1){
+                        for (let j of i.split(' ')){
+                            parag.classList.add(j);
+                        }
+                    } else {
+                        parag.classList.add(i);
+                    };
                     parag.textContent = dataUser[i];
 
                     envir = envir.nextElementSibling;
@@ -393,10 +405,3 @@ popupSendButton.addEventListener("click", e=>{
         };
     });
 });
-
-
-// window.onresize = start;
-// function start(){
-//     console.log(document.documentElement.clientWidth);
-//     console.log(document.documentElement.clientHeight);
-// }
