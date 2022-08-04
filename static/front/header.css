@@ -294,7 +294,7 @@ a:hover::after, .toProfile:hover::after{
 
     opacity: 0;
     visibility: hidden;
-    top: 0;
+    top: 80px;
 
     right: -300%;
     z-index: 40;
@@ -307,6 +307,8 @@ a:hover::after, .toProfile:hover::after{
     display: block;
     background-color: green;
     background-color: #292929;
+
+    padding: 10px;
 }
 
 
@@ -329,13 +331,8 @@ a:hover::after, .toProfile:hover::after{
 
     font-weight: 700;
     margin-bottom: 20px;
-}
 
-.close__svg{    
-    padding: 10px;
-    position: absolute;
-    margin: 5px 20px 20px 0px;
-    cursor: pointer;
+    fill: #fff;
 }
 
 
@@ -344,9 +341,10 @@ a:hover::after, .toProfile:hover::after{
 }
 
 
-.burger__control__link:hover, 
+.burger__control__link:hover , 
 .burger__action__link:hover{
     color: #34AF56;
+    fill: #34AF56;
 }
 
 .header__content, .user__part{
@@ -355,6 +353,11 @@ a:hover::after, .toProfile:hover::after{
 
 .burger__svg g rect{
     fill: #34AF56;
+    transition: all 0.5s ease 0s;
+}
+
+.burger__svg__action g rect{
+    fill: #fff;
 }
 
 .burger__svg{

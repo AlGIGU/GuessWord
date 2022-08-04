@@ -58,6 +58,18 @@ function showQuestion(text, positive, negative){
 
     const downTime = 500;
 
+    const autoQuestionCloser = setTimeout(()=>{
+        serverMessage.classList.remove('server__message__showed');
+        serverMessage.classList.add('server__message__closed');
+
+        setTimeout(() => {
+            server__message__choose.style.display = 'none';
+        }, downTime);
+
+        positive = null;
+        negative = null;
+    }, 7000);
+
     const serverMessage = document.querySelector('.server__message');
     const server__message__choose = serverMessage.querySelector('.server__message__choose');
     server__message__choose.querySelector('.question__text').textContent = text;
@@ -70,6 +82,8 @@ function showQuestion(text, positive, negative){
     const disagreeButton = server__message__choose.querySelector('.server__disagree__button');
 
     agreeButton.addEventListener('click', ()=>{
+        clearTimeout(autoQuestionCloser);
+
         serverMessage.classList.remove('server__message__showed');
         serverMessage.classList.add('server__message__closed');
         server__message__choose.style.display = 'none';
@@ -83,6 +97,8 @@ function showQuestion(text, positive, negative){
     });
     
     disagreeButton.addEventListener('click', ()=>{
+        clearTimeout(autoQuestionCloser);
+
         serverMessage.classList.remove('server__message__showed');
         serverMessage.classList.add('server__message__closed');
 

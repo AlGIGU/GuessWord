@@ -68,6 +68,10 @@ input, .changeButton, .backButton, .deleteButton{
     font-size: 1.4rem;
 }
 
+.changeButton, .backButton, .deleteButton{
+    max-width: 250px;
+}
+
 .dataSection input{
     max-height: 50px;
 }

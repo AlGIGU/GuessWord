@@ -81,9 +81,14 @@ input,.popup__form select,.create__new__user, select.userStatus,
     border: 0.2rem solid #34AF56;
 
     outline: none;
-    width: 200px;
+    width: 250px;
     height: 60px;
     /* max-width: 200px; */
+    text-align: center;
+}
+
+.popup__send__button, .popup__close__button{
+    max-width: 230px;
 }
 
 /* input */
@@ -178,6 +183,8 @@ input:focus, select.status:focus{
     transition: all 0.5s ease 0s;
     visibility: hidden;
     opacity: 0;
+
+    z-index: 1000;
 }
 
 .popup__body{
@@ -333,8 +340,13 @@ ul{
 section input{
     height: 50px;
     width: 100%;
-    max-width: 40vw;
+    max-width: 25vw;
 }
+
+.popup__form form section{
+    padding: 0;
+}
+
 @media (max-width:1000px) {
     .liStyle::before{
         display: none;
@@ -424,7 +436,7 @@ section input{
     
 
     .liStyle section{
-        margin-bottom: 20px;
+        margin-bottom: 5px;
     }
 }
 
@@ -433,9 +445,18 @@ section input{
     max-height: 50px;
 }
 
+@media (max-width:500px){
+    .userId,.userMail, .userCoins, .userStatus, .userName{
+        font-size: 5.2vw;
+    }
+}
+
 @media (max-width:360px) {
     .popup__form form section button{
         max-width: 120px;
+    }
+    .liStyle section{
+        margin-bottom: 0;
     }
 }
 

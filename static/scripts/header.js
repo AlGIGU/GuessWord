@@ -42,7 +42,7 @@ if (document.querySelector('.burger__exit__button')){
 
 
     burgerExitButton.addEventListener('click', ()=>{
-        
+
         burger.classList.add('closed__burger');
         burger.classList.remove('showed__burger');
         
@@ -67,9 +67,10 @@ if (headerBox.querySelectorAll('*').length == 3){
 }
 
 burgerButton.addEventListener('click', e=>{
-    const pageWidth = document.documentElement.scrollWidth; 
-    burger.classList.remove('closed__burger');
-    burger.classList.add('showed__burger');
+    burger.classList.toggle('closed__burger');
+    burger.classList.toggle('showed__burger');
+
+    burgerButton.classList.toggle('burger__svg__action');
 })
 
 closeBurger.addEventListener('click', e=>{

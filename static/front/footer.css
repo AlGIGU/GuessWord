@@ -230,6 +230,7 @@ footer{
 }
 
 .server__message__correct{
+    text-align: left;
     background-color: #279f35;
     box-shadow: 0px 0px 10px #21822c;
 }
@@ -373,6 +374,11 @@ footer::before{
     .server__message__text, .question__text,
     .server__message__button{
         font-size: 25px;
+        text-align: center;
+    }
+    .server__message__wrong,.server__message__correct,
+    .server__message__choose{
+        max-width: 95vw;
     }
 }
 
