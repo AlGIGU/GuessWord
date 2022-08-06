@@ -1,8 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./back/router.js";
-import fileUpload from "express-fileupload"
-import Controller from "./back/controller.js"
+
+import delRouter from "./back/routerDel.js";
+import putRouter from "./back/routerPut.js";
+import postRouter from "./back/routerPost.js";
+
+import fileUpload from "express-fileupload";
+import Controller from "./back/controller.js";
 
 let app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +22,9 @@ app.set('view engine', 'ejs');
 app.set('views', "./pages");
 
 app.use('/', router);
+app.use('/', delRouter);
+app.use('/', putRouter);
+app.use('/', postRouter);
 
 // работа с файлами
 app.use(fileUpload({}));

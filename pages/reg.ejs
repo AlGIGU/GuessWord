@@ -8,32 +8,36 @@
     
     <div class="container">
         <h1 class="regTitle">Регистрация</h1>
-        <form id="mainForm" method="post" enctype="application/x-www-form-urlencoded">
-            <div class="form__body">
-                <div class="form__content">
-                    <section>
-                        <label class="inputTitle">Имя</label>            
-                        <input class="inputArea" type="text" name="name">
-                    </section>
-                    
-                    <section>
-                        <label class="inputTitle">Почта</label>
-                        <input class="inputArea" type="text" name="mail"> 
-                    </section>
-                    
-                    <section>
-                        <label class="inputTitle">Пароль</label>
-                        <input class="inputArea" type="password" name="pass"> 
-                    </section>
-                    
-                    <section>
-                        <label class="inputTitle">Повторите пароль</label>
-                        <input class="inputArea" type="password" name="rePass"> 
-                    </section>
+        <%if (!userProfile.logined){%>
+            <form id="mainForm" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="form__body">
+                    <div class="form__content">
+                        <section>
+                            <label class="inputTitle">Имя</label>            
+                            <input class="inputArea" type="text" name="name">
+                        </section>
+                        
+                        <section>
+                            <label class="inputTitle">Почта</label>
+                            <input class="inputArea" type="text" name="mail"> 
+                        </section>
+                        
+                        <section>
+                            <label class="inputTitle">Пароль</label>
+                            <input class="inputArea" type="password" name="pass"> 
+                        </section>
+                        
+                        <section>
+                            <label class="inputTitle">Повторите пароль</label>
+                            <input class="inputArea" type="password" name="rePass"> 
+                        </section>
+                    </div>
+                    <button id="submit" type="submit">Отправить</button>
                 </div>
-                <button id="submit" type="submit">Отправить</button>
-            </div>
-        </form>
+            </form>
+        <%} else {%>
+            <h2 class="personal__message">Вы уже зашли в аккаунт!</h2>
+        <%}%>
     </div>
     <%-include('./partials/scripts')%>
     </div>

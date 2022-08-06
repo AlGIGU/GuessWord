@@ -146,6 +146,8 @@ footer{
     opacity: 0;
     visibility: hidden;
     transform: translate(0, -50%);
+
+    z-index: 1000;
 }
 
 .server__message__correct, .server__message__wrong, .server__message__choose{

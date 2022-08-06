@@ -34,7 +34,7 @@
     }
 }
 
-p{
+.inputTitle{
     font-size: 2rem;
 }
 
@@ -148,4 +148,8 @@ section[for="login"]{
 section{
     width: 100%;
     max-width: 400px;
+}
+
+.personal__message{
+    font-size: 60px;
 }

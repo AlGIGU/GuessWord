@@ -330,8 +330,6 @@ a:hover::after, .toProfile:hover::after{
     min-height: 50px;
 
     font-weight: 700;
-    margin-bottom: 20px;
-
     fill: #fff;
 }
 
@@ -376,6 +374,13 @@ a:hover::after, .toProfile:hover::after{
     right: -300%;
     opacity: 0;
     visibility: hidden;
+}
+
+.burger__horizontal__line{
+    margin-bottom: 20px;
+    border: none;
+    border-top: 3px solid #171717;
+    border-radius: 20px;
 }
 
 @media (max-width:1200px){

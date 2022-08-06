@@ -127,6 +127,9 @@ section{
     animation: exit__submit__button 1s 1 forwards ease 0s;
 }
 
+.personal__message{
+    font-size: 60px;
+}
 
 @keyframes enter__submit__button {
     from {

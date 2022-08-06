@@ -73,7 +73,7 @@ burgerButton.addEventListener('click', e=>{
     burgerButton.classList.toggle('burger__svg__action');
 })
 
-closeBurger.addEventListener('click', e=>{
-    burger.classList.add('closed__burger');
-    burger.classList.remove('showed__burger');
-})
+// closeBurger.addEventListener('click', e=>{
+//     burger.classList.add('closed__burger');
+//     burger.classList.remove('showed__burger');
+// })

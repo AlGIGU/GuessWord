@@ -36,7 +36,14 @@ sendForm.addEventListener('submit', async (e)=>{
             window.location.href = window.location.href.slice(0, window.location.href.length - 5); 
         })
     } else {
+        sendForm.pass.value = '';
+        sendForm.pass.setCustomValidity('Пароль должен содержать от 6 до 10 символов.');
+        passInput.classList.add('incorrect__area');
+
+        validValue.pass = false;
         sendForm.submit.removeAttribute('disabled');
+        changeButton(validValue);
+        
         showWrong('Неправильный логин или пароль');
     }
 });

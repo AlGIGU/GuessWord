@@ -11,6 +11,10 @@ class Controller{
     index(req, res){
         mainObject.updateStatus({
             currentLink : "/",
+            cssList: ['./front/index.css'],
+            scriptsList : [
+                './scripts/index.js',
+            ],
         })
         res.render('index', mainObject.getStatus);       
     };
@@ -150,17 +154,17 @@ class Controller{
         };
     };
     
-    async updateUser(req,res){
+    async updateUser(req, res){
         try{
 
             // запрос по id (через админку)
             if (req.body.id){
                 const userDB = await User.findByIdAndUpdate(req.body.id,req.body, {new:true});
-
+                
                 res.json(userDB);
                 return;
             };
-
+            
             let updateBody = {
                 name: req.body.name,
                 mail: req.body.mail,
@@ -172,7 +176,6 @@ class Controller{
             };
 
             const userDB = await User.findByIdAndUpdate(mainObject.userInfo.id,updateBody, {new:true});
-            console.log(userDB);
 
             if (!userDB){
                 throw new Error('Пользователь не найден');

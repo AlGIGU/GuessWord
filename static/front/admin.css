@@ -143,7 +143,8 @@ input:focus, select.status:focus{
 
 /* hr */
 .horizontalLine{
-    border: 4px solid #34AF56;
+    border: none;
+    border-top: 4px solid #34AF56;
     width: 101%;
 }
 
@@ -184,7 +185,7 @@ input:focus, select.status:focus{
     visibility: hidden;
     opacity: 0;
 
-    z-index: 1000;
+    z-index: 200;
 }
 
 .popup__body{
@@ -381,6 +382,10 @@ section input{
     label .status{
         max-height: 32px;
     }
+    .popup__content{
+        overflow-y: scroll;
+        max-height: 100vh;
+    }
     
 }
 
@@ -443,7 +448,10 @@ section input{
 .popup__form form label input{
     height: 100%;
     max-height: 50px;
+    font-size: 25px;
 }
+
+
 
 @media (max-width:500px){
     .userId,.userMail, .userCoins, .userStatus, .userName{

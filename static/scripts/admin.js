@@ -141,10 +141,9 @@ fetch('/getAllUsers', {
                     return;
                 }
 
-
-
                 let envir = e.target.parentElement.parentElement;
                 let inputValues = envir.querySelectorAll('input');
+                inputValues.id = envir.querySelector('.userId').textContent;
 
                 for (let i of inputValues){
                     newData[i.className.slice(4).toLowerCase()] = i.value;
@@ -152,11 +151,13 @@ fetch('/getAllUsers', {
                 };
 
                 newData.privilege = envir.querySelector('.userStatus').value;
+                newData.id = envir.querySelector('.userId').textContent;
                 envir.querySelector('.userStatus').remove();
 
                 envir = envir.firstElementChild.nextElementSibling;
 
                 for (let i of Object.keys(newData)){
+                    if (i == 'id') continue;
                     envir.append(document.createElement('p'));
                     let parag = envir.lastElementChild;
 
@@ -184,13 +185,14 @@ fetch('/getAllUsers', {
                 point.querySelector('.changeButton').style.display = 'block';
                 point.querySelector('.deleteButton').style.display = 'block';
 
-                newData.id = point.parentElement.parentElement.querySelector('.userId').textContent;
+
 
                 if(newData['privilege'] == 'Барин'){
                     newData['privilege'] = 'Admin';
                 } else {
                     newData['privilege'] = 'User';
                 }
+
 
                 // отправка запроса в БД
                 fetch('/profile', {
@@ -200,6 +202,7 @@ fetch('/getAllUsers', {
                     },
                     body : JSON.stringify(newData)
                 }).then(res=>{
+
                     if (res.ok){
                         showCorrect('Пользователь изменен');
                     } else {
@@ -255,7 +258,7 @@ fetch('/getAllUsers', {
                     body: JSON.stringify(userId)
                 }).then(res=>{
                     if (res.ok){
-                        showCorrect(`Пользователь с ID ${userId.id} успешно удален`);
+                        showCorrect(`${userId.id} удален`);
 
                         e.target.parentElement.parentElement.classList.add('deletedUser');
                         setTimeout(() => {
