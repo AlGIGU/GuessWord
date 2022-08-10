@@ -21,5 +21,6 @@ router.get('/exit', Controller.exitUser);
 router.get('/admin', Controller.adminPage);
 
 router.get('/getAllUsers', Controller.getAllUsers);
+router.get('/getCurrentUser', Controller.getCurrentUser);
 
 export default router;

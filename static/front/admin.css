@@ -223,7 +223,9 @@ input:focus, select.status:focus{
 .popup__title::after{
     display: block;
     content: '';
-    border: 0.2rem solid #34AF56;
+    border: none;
+    
+    border-bottom: 0.2rem solid #34AF56;
 
     width: 100%;
     border-radius: 20px;
@@ -277,13 +279,14 @@ ul{
 
 .users__title::after{
     content: '';
-    border: 0.2rem solid #34AF56;
-    border-radius: 20px;    
+    border: none;
+    border-top: 0.5rem solid #34AF56;
 
+    border-radius: 20px;    
     display: block;
+
     width: 0%;
     opacity: 0;
-
     transition: all 2s ease 1s;
 }
 
@@ -304,15 +307,6 @@ ul{
     transition: all 1s ease 0s;
 }
 
-.user__status__style{
-    color: rgb(79, 217, 118); 
-    text-shadow: rgb(79, 217, 118) 0px 0px 10px;
-}
-
-.admin__status__style{
-    color: rgb(231, 76, 76); 
-    text-shadow: rgb(231, 76, 76) 0px 0px 10px;
-}
 
 .copy__id__svg g path{
     fill: #fff;

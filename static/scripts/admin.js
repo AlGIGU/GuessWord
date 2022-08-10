@@ -36,13 +36,9 @@ fetch('/getAllUsers', {
     };
 
     for (let i of document.querySelectorAll('.userStatus')){
-        if (i.textContent == "Admin"){
-            i.textContent = "Барин";
-            i.classList.add('admin__status__style');
-        } else {
-            i.textContent = "Смерд";
-            i.classList.add('user__status__style');
-        };
+        i.classList.add(RULES_HIERARCHY[i.textContent].styleSet)
+        i.textContent = RULES_HIERARCHY[i.textContent][CURRENT_LENG];
+
     };
 
     const ulBody = document.body.querySelector('.mainContainer').querySelector('ul');
@@ -70,10 +66,17 @@ fetch('/getAllUsers', {
 
 
                 if (point.querySelector('p').classList.contains('userStatus')){
-                    const selectorList = [
-                        'User',
-                        'Admin',
-                    ];
+                    let nwUserStatus = e.target.parentElement.parentElement.querySelector('.userStatus').textContent;
+                    let selectorList = [];
+
+                    for (let i of Object.keys(RULES_HIERARCHY)){
+                        if (RULES_HIERARCHY[i].RU == nwUserStatus){
+                            selectorList.unshift(i);
+                        } else {
+                            selectorList.push(i);
+                        };
+                    };
+
 
                     let selectElem = document.createElement('select');
                     point.append(selectElem);
@@ -141,6 +144,7 @@ fetch('/getAllUsers', {
                     return;
                 }
 
+                
                 let envir = e.target.parentElement.parentElement;
                 let inputValues = envir.querySelectorAll('input');
                 inputValues.id = envir.querySelector('.userId').textContent;
@@ -163,13 +167,9 @@ fetch('/getAllUsers', {
 
                     if (i == 'privilege'){
                         parag.classList.add(`userStatus`);
-                        if (newData[i] == 'Admin'){
-                            newData[i] = 'Барин';
-                            parag.classList.add('admin__status__style');
-                        } else {
-                            newData[i] = 'Смерд';
-                            parag.classList.add('user__status__style');
-                        }
+                        parag.classList.add(RULES_HIERARCHY[newData[i]].styleSet);
+                        newData[i] = RULES_HIERARCHY[newData[i]][CURRENT_LENG];
+
                     } else {
                         parag.classList.add(`user${i[0].toUpperCase()+i.slice(1)}`);
                     };
@@ -186,15 +186,12 @@ fetch('/getAllUsers', {
                 point.querySelector('.deleteButton').style.display = 'block';
 
 
-
-                if(newData['privilege'] == 'Барин'){
-                    newData['privilege'] = 'Admin';
-                } else {
-                    newData['privilege'] = 'User';
-                }
-
-
-                // отправка запроса в БД
+                for (let i of Object.keys(RULES_HIERARCHY)){
+                    if (RULES_HIERARCHY[i].RU == newData['privilege']){
+                        newData['privilege'] = RULES_HIERARCHY[i].EN;
+                        break;
+                    };
+                };
                 fetch('/profile', {
                     method:"put",
                     headers: {
@@ -205,8 +202,10 @@ fetch('/getAllUsers', {
 
                     if (res.ok){
                         showCorrect('Пользователь изменен');
+                    } else if (res.status == 512){
+                        showWrong('Недостаточно прав');
                     } else {
-                        showWrong('Ошибка при изменении');
+                        showWrong('Ошибка сервера');
                     };
                 });
             });
@@ -264,7 +263,8 @@ fetch('/getAllUsers', {
                         setTimeout(() => {
                             e.target.parentElement.parentElement.remove();
                         }, 800);
-
+                    } else if (res.status == 512){
+                        showWrong('Недостаточно прав');
                     } else {
                         showWrong('Ошибка на сервере');
                     };

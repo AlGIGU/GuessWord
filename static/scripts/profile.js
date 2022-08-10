@@ -1,15 +1,8 @@
 const userStatus = document.querySelector('#userStatus');
 const hrLine = document.querySelector('.horizontalLine');
 
-if (userStatus.textContent == 'Admin'){
-    userStatus.textContent = "Барин"
-    userStatus.classList.add('adminStyle');
-
-} else {
-    userStatus.textContent = "Смерд"
-    userStatus.classList.add('userStyle');
-    userStatus.style.color = '#4fd976';
-};
+userStatus.classList.add(RULES_HIERARCHY[userStatus.textContent].styleSet);
+userStatus.textContent = RULES_HIERARCHY[userStatus.textContent][CURRENT_LENG];
 
 const changeButton = document.querySelector('.changeButton');
 const deleteButton = document.querySelector('.deleteButton');

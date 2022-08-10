@@ -146,42 +146,6 @@ input:focus{
     width: 100%;
 }
 
-/* status style */
-.adminStyle{
-    color: #e74c4c;
-    text-shadow: 0px 0px 0px #e74c4c;
-    animation: 2s infinite alternate adminMerc;
-    transition: animation 2s cubic-bezier(.55,-0.45,.4,1.51) 1s;
-}
-
-@keyframes adminMerc {
-    from{
-        text-shadow: 0px 0px 0px #e74c4c;
-    }
-
-    to{        
-        text-shadow: 0px 0px 10px #e74c4c;
-    }
-}
-
-.userStyle{
-    color: #4fd976;
-    text-shadow: 0px 0px 0px #4fd976;
-    animation: 2s infinite alternate userMerc;
-    transition: animation 2s cubic-bezier(.55,-0.45,.4,1.51) 1s;
-}
-
-@keyframes userMerc {
-    from{
-        text-shadow: 0px 0px 0px #4fd976;
-    }
-
-    to{        
-        text-shadow: 0px 0px 10px #4fd976;
-    }
-}
-
-
 @media (max-width:600px) {
     .dataSection{
         display: block;

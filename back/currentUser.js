@@ -19,6 +19,8 @@ class CurrentUser{
             coins : undefined,
             mail: undefined,
             status: undefined,
+
+            privilegeLevel: undefined,
         };
     };
 
@@ -98,7 +100,8 @@ class CurrentUser{
                         name : schemaResponse.name,
                         mail : schemaResponse.mail,
                         coins : schemaResponse.coins,
-                        status : schemaResponse.privilege
+                        status : schemaResponse.privilege,
+                        privilegeLevel : schemaResponse.privilegeLevel,
                     };
 
                 } else {
@@ -110,7 +113,7 @@ class CurrentUser{
             };
 
         } catch(e){
-            console.log('currentUser: ', e.message);
+            console.log(e.message);
             return new Error(e.message);
         };
     };
@@ -127,14 +130,9 @@ class CurrentUser{
     };
 
     unsetUser(){
-        this.userProfile = {
-            id : undefined,
-            logined : false,
-            name : undefined,
-            coins : undefined,
-            mail: undefined,
-            status: undefined,
-        };
+        for (let i of Object.keys(this.userProfile)){
+            this.userProfile[i] = undefined;
+        }
     };
 };
 

@@ -6,6 +6,50 @@ const burgerButton = document.querySelector('.burger__svg');
 const burger = document.querySelector('.burger');
 const closeBurger = document.querySelector('.close__svg');
 
+// переделать после добавления coockies
+fetch('/getCurrentUser',{
+    method:"get",
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+}).then(value=>{
+    value.json().then(res=>{
+        console.log(res);
+    })
+});
+
+const CURRENT_LENG = 'RU';
+const RULES_HIERARCHY = {
+    User : {
+        privilegeLevel : 1,
+        EN : 'User',
+        RU : 'Смерд',
+        UA : 'Холоп',
+        color: 'rgb(79, 217, 118)', 
+        'text-shadow': 'rgb(79, 217, 118) 0px 0px 10px',
+        styleSet : 'user__status__style',
+    
+    },
+    Admin : {
+        privilegeLevel : 50,
+        EN : 'Admin',
+        RU : 'Барин',
+        UA : 'Кошовий',
+        color: 'rgb(231, 76, 76)',
+        "text-shadow": 'rgb(231, 76, 76) 0px 0px 10px',
+        styleSet : 'admin__status__style',
+    },
+
+    Owner : {
+        privilegeLevel : 100,
+        EN : 'Owner',
+        RU : 'Хозяин',
+        UA : 'Атаман',
+        color: 'rgb(231, 202, 73)',
+        'text-shadow': 'rgb(231, 202, 73) 0px 0px 10px',
+        styleSet : 'owner__status__style',
+    },
+}
 
 function toCorrectLink(url=window.location.href, way=''){
     url = url.split('').reverse().join('');

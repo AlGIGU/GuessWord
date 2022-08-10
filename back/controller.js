@@ -84,7 +84,7 @@ class Controller{
     };
     
     adminPage(req,res){
-        if (mainObject.userInfo.status != 'Admin'){
+        if (!mainObject.userInfo.logined || mainObject.userInfo.privilegeLevel < 50){
             mainObject.updateStatus({
                 headTitle:"Guess Word",
                 currentLink:"notFound",
@@ -126,6 +126,11 @@ class Controller{
         res.render('notFound', mainObject.getStatus);
     };
 
+    getCurrentUser(req, res){
+        res.json(mainObject.userInfo);
+        return;
+    }
+
     async checkPass(req,res){
         try{
             const userDB = await User.findById(mainObject.userInfo.id)  
@@ -159,8 +164,15 @@ class Controller{
 
             // запрос по id (через админку)
             if (req.body.id){
-                const userDB = await User.findByIdAndUpdate(req.body.id,req.body, {new:true});
+                let userDB = await User.findById(req.body.id)
+
+                if (userDB.privilegeLevel > mainObject.userInfo.privilegeLevel){
+                    res.status(512).json('Недостаточно прав');
+                    return;
+                };
                 
+                userDB = await User.findByIdAndUpdate(req.body.id,req.body, {new:true});
+
                 res.json(userDB);
                 return;
             };
@@ -179,15 +191,15 @@ class Controller{
 
             if (!userDB){
                 throw new Error('Пользователь не найден');
-            }
+            };
             
             mainObject.updateUser(req.body);
 
             res.json(userDB);
         }catch(e){
             res.status(500).json(e.message);
-        }
-    }
+        };
+    };
 
     async getUser(req,res){
         try{
@@ -198,13 +210,13 @@ class Controller{
             if (!errors.isEmpty()) throw new Error('Неправильный формат ввода');
 
             const userData = await mainObject.findUser(req.body.login, req.body.pass);
-            if (Object.keys(userData).length == 5){
+            if (Object.keys(userData).length != 0){
                 mainObject.setUser(userData);
             } else {
                 throw new Error('Неправильные данные');
             }
 
-            res.json('All correct!');
+            res.json(mainObject.userInfo);
         } catch(e){
             res.status(500).json(e);
         };
@@ -255,7 +267,7 @@ class Controller{
                 });
             };
 
-            res.json('Done');       
+            res.json(mainObject.userInfo);       
 
         } catch(e){
             console.log(e.message);
@@ -266,6 +278,11 @@ class Controller{
     async deleteUser(req,res){
         try{
             if (req.body.id){
+                const userDB = await User.findById(req.body.id);
+                if (userDB.privilegeLevel > mainObject.userInfo.privilegeLevel){
+                    res.status(512).json('Недостаточно прав');
+                    return;
+                };
                 await User.findByIdAndDelete(req.body.id);
             } else {
                 await User.findByIdAndDelete(mainObject.userInfo.id);

@@ -5,8 +5,10 @@ const User = new mongoose.Schema({
     name: {type: String, required : true, minlength:2},
     mail: {type: String, required : true},
     password: {type: String, required : true},
-    coins: {type: String, required : true},
-    privilege : {type: String, default:"User"}
+
+    coins: {type: Number, required : true, default:0},
+    privilege : {type: String, default:"User"},
+    privilegeLevel : {type: Number, default:1},
 });
 
 export default mongoose.model('User', User);

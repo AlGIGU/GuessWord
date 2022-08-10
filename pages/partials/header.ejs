@@ -13,7 +13,7 @@
                             <!-- ссылки на статику ведутся относительно папки со статикой -->
                             <a class="controlLink <%if (currentLink=="/") {%>action<%}%>" href="/">Главная</a>                
                             <a class="controlLink <%if (currentLink=="/rules") {%>action<%}%>" href="/rules">Правила</a>
-                            <%if (userProfile.logined & userProfile.status == 'Admin'){%>
+                            <%if (userProfile.logined & userProfile.privilegeLevel >= 50){%>
                                 <a class="controlLink <%if (currentLink=="/admin") {%>action<%}%>" href="/admin">Админка</a>
                                 <%}%>
                         </div>
