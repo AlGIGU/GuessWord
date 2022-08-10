@@ -69,7 +69,7 @@
                         </svg>
                 </a>
                 <hr class="burger__horizontal__line">
-                <%if (userProfile.logined & userProfile.status == 'Admin'){%>
+                <%if (userProfile.logined & userProfile.privilegeLevel >= 50){%>
                     <a class="burger__control__link" href="/admin">Админка
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 267.5 267.5" style="enable-background:new 0 0 267.5 267.5;" xml:space="preserve" width="30px" height="30px">

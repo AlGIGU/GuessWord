@@ -1,3 +1,7 @@
+function checkLevel(e){    
+    return (RULES_HIERARCHY[findPrivilege(e.target.parentElement.parentElement.querySelector('.userStatus').textContent)].privilegeLevel < loginedUserInfo.privilegeLevel);
+}
+
 fetch('/getAllUsers', {
     method:"GET",
     headers: {
@@ -24,6 +28,10 @@ fetch('/getAllUsers', {
     ul = document.querySelector('ul');
     
     for (let user of value){
+        if (user._id == loginedUserInfo.id){
+            continue;
+        };
+        
         let li = document.createElement('li');
         li.innerHTML = userElement;
         ul.append(li);
@@ -45,6 +53,11 @@ fetch('/getAllUsers', {
 }).then(()=>{
         document.querySelector('ul').addEventListener('click', e=>{
         if (e.target.classList.contains('changeButton')){
+
+            if (!checkLevel(e)){
+                showWrong('Недостаточно прав');
+                return;
+            };
 
             let dataUser = {};
             let newData = {};
@@ -73,7 +86,9 @@ fetch('/getAllUsers', {
                         if (RULES_HIERARCHY[i].RU == nwUserStatus){
                             selectorList.unshift(i);
                         } else {
-                            selectorList.push(i);
+                            if (RULES_HIERARCHY[i].privilegeLevel < loginedUserInfo.privilegeLevel){
+                                selectorList.push(i);
+                            }
                         };
                     };
 
@@ -186,12 +201,11 @@ fetch('/getAllUsers', {
                 point.querySelector('.deleteButton').style.display = 'block';
 
 
-                for (let i of Object.keys(RULES_HIERARCHY)){
-                    if (RULES_HIERARCHY[i].RU == newData['privilege']){
-                        newData['privilege'] = RULES_HIERARCHY[i].EN;
-                        break;
-                    };
-                };
+                newData.privilege = findPrivilege(newData.privilege);
+                
+                newData.privilegeLevel = RULES_HIERARCHY[newData.privilege].privilegeLevel;
+                console.log(newData);
+
                 fetch('/profile', {
                     method:"put",
                     headers: {
@@ -243,6 +257,11 @@ fetch('/getAllUsers', {
 
 
         } else if (e.target.classList.contains('deleteButton')){
+
+            if (!checkLevel(e)){
+                showWrong('Недостаточно прав');
+                return;
+            };
 
             // удаление пользователя
             showQuestion('Вы уверены, что хотите удалить пользователя?', ()=>{

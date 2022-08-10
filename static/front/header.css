@@ -101,6 +101,10 @@
         justify-content: space-between;
     }
 
+.controlLink, .actionLink, .exitButton, #profileName{
+    font-size: 20px;
+}
+
 /* controlLink */
     .controlLink{
         color: #fff;
@@ -218,11 +222,11 @@ a:hover::after, .toProfile:hover::after{
 }
 
 .for__two__items__style{
-    max-width: 240px;
+    max-width: 200px;
 }
 
 .for__three__items__style{
-    max-width: 350px;
+    max-width: 300px;
 }
 
 .control__part{

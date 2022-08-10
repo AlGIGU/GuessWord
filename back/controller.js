@@ -55,7 +55,6 @@ class Controller{
             cssList : ["./front/profile.css"],
             scriptsList : [
                 "./scripts/profile.js",
-                "./scripts/profileValid.js",
             ]
         });
 
@@ -166,7 +165,7 @@ class Controller{
             if (req.body.id){
                 let userDB = await User.findById(req.body.id)
 
-                if (userDB.privilegeLevel > mainObject.userInfo.privilegeLevel){
+                if (userDB.privilegeLevel >= mainObject.userInfo.privilegeLevel){
                     res.status(512).json('Недостаточно прав');
                     return;
                 };

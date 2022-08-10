@@ -6,6 +6,7 @@ const burgerButton = document.querySelector('.burger__svg');
 const burger = document.querySelector('.burger');
 const closeBurger = document.querySelector('.close__svg');
 
+let loginedUserInfo = undefined;
 // переделать после добавления coockies
 fetch('/getCurrentUser',{
     method:"get",
@@ -14,8 +15,8 @@ fetch('/getCurrentUser',{
     },
 }).then(value=>{
     value.json().then(res=>{
-        console.log(res);
-    })
+        loginedUserInfo = res;
+    });
 });
 
 const CURRENT_LENG = 'RU';
@@ -49,6 +50,15 @@ const RULES_HIERARCHY = {
         'text-shadow': 'rgb(231, 202, 73) 0px 0px 10px',
         styleSet : 'owner__status__style',
     },
+}
+
+function findPrivilege(value, lang = 'EN'){
+    for (let i of Object.keys(RULES_HIERARCHY)){
+        if (value == RULES_HIERARCHY[i][CURRENT_LENG]){
+            return RULES_HIERARCHY[i][lang];
+        };
+    };
+    return 'User';
 }
 
 function toCorrectLink(url=window.location.href, way=''){
