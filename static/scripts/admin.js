@@ -31,7 +31,7 @@ fetch('/getAllUsers', {
         if (user._id == loginedUserInfo.id){
             continue;
         };
-        
+
         let li = document.createElement('li');
         li.innerHTML = userElement;
         ul.append(li);
@@ -45,7 +45,7 @@ fetch('/getAllUsers', {
 
     for (let i of document.querySelectorAll('.userStatus')){
         i.classList.add(RULES_HIERARCHY[i.textContent].styleSet)
-        i.textContent = RULES_HIERARCHY[i.textContent][CURRENT_LENG];
+        i.textContent = RULES_HIERARCHY[i.textContent][CURRENT_LANG];
 
     };
 
@@ -183,7 +183,7 @@ fetch('/getAllUsers', {
                     if (i == 'privilege'){
                         parag.classList.add(`userStatus`);
                         parag.classList.add(RULES_HIERARCHY[newData[i]].styleSet);
-                        newData[i] = RULES_HIERARCHY[newData[i]][CURRENT_LENG];
+                        newData[i] = RULES_HIERARCHY[newData[i]][CURRENT_LANG];
 
                     } else {
                         parag.classList.add(`user${i[0].toUpperCase()+i.slice(1)}`);
@@ -331,6 +331,21 @@ const userForm = popupContent.querySelector('form');
 
 addUserButton.addEventListener('click', e=>{
     e.preventDefault();
+
+    const selectArea = popupContent.querySelector('select[name="status"]');
+    let selectChild = selectArea.firstElementChild;
+
+    while(selectChild){
+        let i = selectChild;
+        selectChild = selectChild.nextElementSibling;
+
+        if (RULES_HIERARCHY[i.value].privilegeLevel >= loginedUserInfo.privilegeLevel){
+            i.remove();
+        } else {
+            i.textContent = RULES_HIERARCHY[i.value][CURRENT_LANG];
+        };
+    };
+
     popup.style.opacity = '1';
     popup.style.visibility = 'visible';
     

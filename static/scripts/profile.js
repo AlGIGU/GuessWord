@@ -2,7 +2,7 @@ const userStatus = document.querySelector('#userStatus');
 const hrLine = document.querySelector('.horizontalLine');
 
 userStatus.classList.add(RULES_HIERARCHY[userStatus.textContent].styleSet);
-userStatus.textContent = RULES_HIERARCHY[userStatus.textContent][CURRENT_LENG];
+userStatus.textContent = RULES_HIERARCHY[userStatus.textContent][CURRENT_LANG];
 
 const changeButton = document.querySelector('.changeButton');
 const deleteButton = document.querySelector('.deleteButton');

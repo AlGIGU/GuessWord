@@ -19,7 +19,7 @@ fetch('/getCurrentUser',{
     });
 });
 
-const CURRENT_LENG = 'RU';
+const CURRENT_LANG = 'UA';
 const RULES_HIERARCHY = {
     User : {
         privilegeLevel : 1,
@@ -54,7 +54,7 @@ const RULES_HIERARCHY = {
 
 function findPrivilege(value, lang = 'EN'){
     for (let i of Object.keys(RULES_HIERARCHY)){
-        if (value == RULES_HIERARCHY[i][CURRENT_LENG]){
+        if (value == RULES_HIERARCHY[i][CURRENT_LANG]){
             return RULES_HIERARCHY[i][lang];
         };
     };
