@@ -19,7 +19,7 @@ fetch('/getCurrentUser',{
     });
 });
 
-const CURRENT_LANG = 'UA';
+const CURRENT_LANG = 'RU';
 const RULES_HIERARCHY = {
     User : {
         privilegeLevel : 1,
@@ -51,6 +51,28 @@ const RULES_HIERARCHY = {
         styleSet : 'owner__status__style',
     },
 }
+
+
+const mailReg = new RegExp(/^[a-zA-Z]+[0-9.-_]{0,}[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$/);
+const nameReg = /^[a-zA-Z_-]{2,20}$/;
+const scoreReg = /^[0-9]{1,10}$/;
+const passReg = /^[a-zA-Z0-9*_-]{6,30}$/;
+
+function checkMail(mail){
+    return (mail.length >= 4 & mail.length < 30 & mailReg.test(mail));
+};
+
+function checkCoins(coins){
+    return scoreReg.test(coins);
+};
+
+function checkUserName(name){
+    return nameReg.test(name);
+};
+
+function checkPass(pass){
+    return passReg.test(pass);
+};
 
 function findPrivilege(value, lang = 'EN'){
     for (let i of Object.keys(RULES_HIERARCHY)){

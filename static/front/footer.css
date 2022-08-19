@@ -98,15 +98,10 @@ footer{
     background-color: #34AF56;
 
     width: 100%;
-    /* max-width: 95px; */
     border-radius: 20px;
 
     border: 4px solid #34AF56;
     margin-bottom: 5%;
-}
-
-.footer__title::after{
-    /* max-width: 320px; */
 }
 
 .signature__text{
@@ -140,12 +135,16 @@ footer{
     height: 100%;
 
     top: 0;
-    left: 0;
+    left: 30%;
+
     justify-content: center;
 
     opacity: 0;
     visibility: hidden;
     transform: translate(0, -50%);
+
+    max-height: 100px;
+    max-width: 40vw;
 
     z-index: 1000;
 }
@@ -206,7 +205,7 @@ footer{
 
 .server__message__closed{
     transition: all 1s ease 0s;
-    animation: close__server__message 1s 1 forwards cubic-bezier(.33,.09,.62,1.06) 0s;
+    animation: close__server__message 0.3s 1 forwards cubic-bezier(.33,.09,.62,1.06) 0s;
 }
 
 @keyframes close__server__message {

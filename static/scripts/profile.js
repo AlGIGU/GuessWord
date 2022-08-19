@@ -46,69 +46,58 @@ changeButton.addEventListener('click', ()=>{
         };
     });
 
-    // пароля
-    mainForm.userPass.setCustomValidity('Поле пароля пустое.');
-    mainForm.userPass.addEventListener('input', ()=>{
-        mainForm.userPass.setCustomValidity('');
-
-        if (mainForm.userPass.value.length < 6 || mainForm.userPass.value.length > 10){
-            mainForm.userPass.setCustomValidity('Пароль должен быть длиной от 6 до 10 символов.');
-        }
-    });
-
-    // нового пароля
-    mainForm.userNewPass.setCustomValidity("LALLA")
-    mainForm.userNewPass.addEventListener('input', ()=>{
-        mainForm.userNewPass.setCustomValidity('');
-
-        if (mainForm.userNewPass.value.length > 0){
-            if (mainForm.userNewPass.value == mainForm.userPass.value){
-                mainForm.userNewPass.setCustomValidity('Пароли не должны совпадать.')
-            } else if (mainForm.userPass.value.length < 6 || mainForm.userPass.value.length > 10){
-                    mainForm.userNewPass.setCustomValidity('Пароль должен быть длиной от 6 до 10 символов.');
-            }
-    }}); 
-
     
     document.querySelector('[name="submitButton"]').addEventListener('click', async e=>{
         e.preventDefault();
-        
+
+        if (!checkUserName(mainForm.userName.value)){
+            showWrong('Неправильный формат имени');
+            return;
+        };
+
+        if (!checkMail(mainForm.userMail.value)){
+            showWrong('Неправильный формат почты');
+            return;
+        };
+
         const userData = {
             name: mainForm.userName.value,
             mail: mainForm.userMail.value,
-            password: mainForm.userPass.value,
-            newPassword: mainForm.userNewPass.value,
         };
 
-        fetch('/checkPass',{
-            method:"post",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({pass: userData.password}),
-
-        }).then(value=>{
-            if (value.ok){
-                fetch('/profile', {
-                    method:"put",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify(userData)
-                }).then(value=>{
-                    if (value.ok){
-                        showCorrect('Данные успешно обновлены', ()=>{
-                            window.location.href = window.location.href;
-                        });
-                    } else {
-                        showWrong('Ошибка при обновлении данных');
-                    };
-                })
+        if (mainForm.querySelector('input[name="userCoins"]')){   
+            if (!checkCoins(mainForm.userCoins.value)){
+                showWrong('Неправильный формат счёта');
+                return;
             } else {
-                showWrong('Неправильный пароль');
+                userData.coins = mainForm.userCoins.value;
             };
-        });
+        };
 
+        if (mainForm.userNewPass.value.length > 0){
+            if (checkPass(mainForm.userNewPass.value)){
+                userData.newPassword = mainForm.userNewPass.value;
+            } else {
+                showWrong('Неправильный формат пароля');
+                return;
+            };
+        };
+
+            fetch('/profile', {
+                method:"put",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(userData)
+            }).then(value=>{
+                if (value.ok){
+                    showCorrect('Данные успешно обновлены', ()=>{
+                        window.location.href = window.location.href;
+                    });
+                } else {
+                    showWrong('Ошибка при обновлении данных');
+                };
+            });
     });
 
 });

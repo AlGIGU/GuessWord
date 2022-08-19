@@ -143,22 +143,21 @@ fetch('/getAllUsers', {
 
             saveButton.addEventListener('click', e=>{
 
-                let reg = new RegExp('^[a-zA-Z0-9._]+[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$');
-                if (saveButton.parentElement.parentElement.querySelector('.userName').value.length == 0 || saveButton.parentElement.parentElement.querySelector('.userName').value.length > 20 ){
-                    showWrong('Имя должно быть длинной от 1 до 20 символов');
+                if (!checkUserName(saveButton.parentElement.parentElement.querySelector('.userName').value)){
+                    showWrong('Неправильный формат имени');
                     return;
-                }
+                };
 
-                if (saveButton.parentElement.parentElement.querySelector('.userCoins').value  > 1000000000){
-                    showWrong('Счет не может превышать 1.000.000.000, читер!');
+                if (!checkCoins(saveButton.parentElement.parentElement.querySelector('.userCoins').value)){
+                    showWrong('Неправильный формат счета');
                     return;
-                }
+                };
 
-                if (!reg.test(saveButton.parentElement.parentElement.querySelector('.userMail').value)){
+
+                if (!checkMail(saveButton.parentElement.parentElement.querySelector('.userMail').value)){
                     showWrong('Неправильный формат почты');
                     return;
-                }
-
+                };
                 
                 let envir = e.target.parentElement.parentElement;
                 let inputValues = envir.querySelectorAll('input');
@@ -368,52 +367,41 @@ function closePopup(e){
     popupContent.style.opacity = '0';    
 };
 
+
 popupCloseButton.addEventListener('click', e=>closePopup(e));
-
-// валидация формы
-userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
-userForm.mail.setCustomValidity('Поле почты не должно быть пустым.');
-userForm.password.setCustomValidity('Поле пароля не должно быть пустым.');
-userForm.rePassword.setCustomValidity('Поле пароля не должно быть пустым.');
-
-userForm.name.addEventListener('input', e=>{
-    if (userForm.name.value.length > 2){
-        userForm.name.setCustomValidity('');
-    } else {
-        userForm.name.setCustomValidity('Поле имени не должно быть пустым.');
-    };
-});
-
-userForm.mail.addEventListener('input', e=>{
-    
-    let reg = new RegExp('^[a-zA-Z0-9._]+[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$');
-    userForm.mail.setCustomValidity('');
-    
-    if (userForm.mail.value.length == 0){
-        userForm.mail.setCustomValidity('Поле почты не должно быть пустым.');
-    } else if (!reg.test(userForm.mail.value)){
-        userForm.mail.setCustomValidity('Неправильный формат почты.');
-    }
-});
-
-userForm.password.addEventListener('input', e=>{
-    userForm.password.setCustomValidity('');
-    if (userForm.password.value.length < 6){
-        userForm.password.setCustomValidity('Поле пароля должно быть длиной от 6 символов.');
-    };
-});
-
-userForm.rePassword.addEventListener('input', e=>{
-    userForm.rePassword.setCustomValidity('');
-    
-    if (userForm.rePassword.value != userForm.password.value){
-        userForm.rePassword.setCustomValidity('Пароли не совпадают');
-    };
-});
 
 // отправка новых данных
 popupSendButton.addEventListener("click", e=>{
     e.preventDefault();
+
+
+    // **** добавить стилизацию ошибки для input **** 
+
+    if (!checkUserName(userForm.name.value)){
+        showWrong('Неправильный формат имени');
+        return;
+    };
+
+    if (!checkMail(userForm.mail.value)){
+        showWrong('Неправильный формат почты');
+        return;
+    };
+    
+    if (!checkCoins(userForm.coins.value)){
+        showWrong('Неправльный форма счета');
+        return;
+    };
+    
+    if (!checkPass(userForm.password.value)){
+        showWrong('Неправильный формат пароля');
+        return;
+    };
+    
+    if (!(userForm.password.value == userForm.rePassword.value)){
+        showWrong('Пароль и повтор пароля несовпадают');
+        return;
+    };
+    
     
     const dataUser = {
         name : userForm.name.value,
@@ -422,8 +410,7 @@ popupSendButton.addEventListener("click", e=>{
         coins : userForm.coins.value || 0,        
         privilege: userForm.status.value || "User",
         fromAdmin : true
-    };
-    
+    };    
 
     fetch('/reg', {
         method:"post",

@@ -27,11 +27,18 @@
                         <input type="text" name="userMail" value="<%=userProfile.mail%>">
                     </section>
 
-                    <section class="dataSection">
+                    <%if (userProfile.privilegeLevel >= 50){%>
+                        <section class="dataSection">
+                            <p class="titleData">Счёт: </p>
+                            <input type="numer" name="userCoins" value="<%=userProfile.coins%>">
+                        </section>
+                    <%}%>
+
+                    <!-- <section class="dataSection">
                         <p class="titleData">Пароль: </p>
                         <input type="password" name="userPass">
                     </section>
-                    
+                     -->
                     <section class="dataSection">
                         <p class="titleData">Новый пароль(при желании): </p>
                         <input type="password" name="userNewPass">

@@ -144,9 +144,22 @@ class Controller{
                 res.status(400).json('Не правильный пароль');
             }
         } catch(e){
+            console.log('Controller::147: ',e.message);
             res.status(500).json(e.message);
         }
     }
+
+    get mailReg(){
+        return /^[a-zA-Z]+[0-9.-_]{0,}[@]{1}(mail|gmail|list|bk){1}[.]{1}(ua|com|ru){1}$/;
+    };
+
+    get scoreReg(){
+        return /^[0-9]{1,10}$/;
+    };
+
+    get userNameReg(){
+        return /^[a-zA-Z_-]{2,20}$/;
+    };
 
     // работа с БД
     async getAllUsers(req,res){
@@ -154,6 +167,7 @@ class Controller{
             const users = await User.find({});
             res.json(users);
         }catch(e){
+            console.log('Controller::158: ',e.message);
             res.status(500).json('Error');
         };
     };
@@ -161,6 +175,10 @@ class Controller{
     async updateUser(req, res){
         try{
 
+            const errors = validationResult(req);
+            if (!errors.isEmpty()){
+                throw new Error(errors.array()[0].msg);
+            }
             // запрос по id (через админку)
             if (req.body.id){
                 let userDB = await User.findById(req.body.id)
@@ -179,7 +197,7 @@ class Controller{
             let updateBody = {
                 name: req.body.name,
                 mail: req.body.mail,
-                privilege: mainObject.userInfo.status, 
+                coins: req.body.coins,
             };
 
             if (req.body.newPassword){
@@ -196,6 +214,7 @@ class Controller{
 
             res.json(userDB);
         }catch(e){
+            console.log('Controller::200: ',e.message);
             res.status(500).json(e.message);
         };
     };
@@ -217,6 +236,7 @@ class Controller{
 
             res.json(mainObject.userInfo);
         } catch(e){
+            console.log('Controller::223: ',e.message);
             res.status(500).json(e);
         };
     };
@@ -229,13 +249,13 @@ class Controller{
             let newUser = req.body;
 
             delete newUser.fromAdmin;
-            
+
             // валидация
             const errors = validationResult(req);
             if (!errors.isEmpty()){
                 throw new Error("Ошибка валидации");
             };
-            
+
             if (await CurrentUser.userInDB(req.body.name,req.body.mail)){
                 throw new Error('Данный пользователь уже зарегистрирован.')
             };
@@ -248,9 +268,9 @@ class Controller{
             
             createdUser.save(err=>{
                 if (err){
-                    console.log(err.message);
+                    console.log('Controller::255: ',err.message);
                     throw new Error('Ошибка сохранения в БД.');
-                }
+                };
             });
             
             if (!fromAdmin){   
@@ -269,7 +289,7 @@ class Controller{
             res.json(mainObject.userInfo);       
 
         } catch(e){
-            console.log(e.message);
+            console.log('Controller::272: ',e.message);
             res.status(500).json(e);
         };
     };
@@ -290,6 +310,7 @@ class Controller{
 
             res.json("Done");
         }catch(e){
+            console.log('Controller::293: ',e.message);
             res.status(500).json(e.message);
         }
     }
